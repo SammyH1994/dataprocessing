@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Name:
-# Student number:
+# Name: Sammy Heutz
+# Student number: 10445765
 """
 This script scrapes IMDB and outputs a CSV file with highest rated tv series.
 """
@@ -18,61 +18,78 @@ OUTPUT_CSV = 'tvseries.csv'
 
 
 def extract_tvseries(dom):
-
 	
 	# extract titles
+	titles = []
 	for link in dom.find_all("h3", "lister-item-header"):
-
 		title = link.contents[3]
 		if not title:
 			break
-		print(title.string)
+		titles.append(title.string)
+
 		
 	# extract ratings
+	ratings = []
 	for rating in dom.find_all("span", "value"):
 		rate = rating.contents[0]
-		print(rate.string)
+		ratings.append(rate.string)
 		
 	# extract genres
+	genres = []
 	for genre in dom.find_all("span", "genre"):
 		genre = genre.contents[0]
-		print(genre.string)
+		genres.append(genre.string.strip())
 		
 	# extract actors
-	for stars in dom.find_all(href=re.compile("adv_li_st")):
-		print(stars.string)
+	actors = []
+	cast = ""
+	
+	for children in dom.find_all("div", "lister-item-content"):
+		i = 0
+		cast = ""
+		
+		for stars in children(href=re.compile("adv_li_st")):
+			amount_stars = len(children(href=re.compile("adv_li_st")))
+			cast += stars.string
+			if i != amount_stars - 1:
+				cast += ","	
+			i += 1
+	
+		actors.append(cast)
+	print(actors)
+		
+
 		
 	# extract runtime 
-	for data in dom.find_all("lister-item-header"):
-		for runtime in dom.find_all("span", "runtime"):
-			runtime = runtime.contents[0]
-			print(runtime.string.strip(" min"))
-	return []
-    
-    #Extract a list of highest rated TV series from DOM (of IMDB page).
-    #Each TV series entry should contain the following fields:
-    #- TV Title
-    #- Rating
-    #- Genres (comma separated if more than one)
-    #- Actors/actresses (comma separated if more than one)
-    #- Runtime (only a number!)
-    
-    # ADD YOUR CODE HERE TO EXTRACT THE ABOVE INFORMATION ABOUT THE
-    # HIGHEST RATED TV-SERIES
-    # NOTE: FOR THIS EXERCISE YOU ARE ALLOWED (BUT NOT REQUIRED) TO IGNORE
-    # UNICODE CHARACTERS AND SIMPLY LEAVE THEM OUT OF THE OUTPUT.
+	runtimes = []
+	for runtime in dom.find_all("span", "runtime"):
+		runtime = runtime.contents[0]
+		runtimes.append(runtime.string.strip(" min"))
 
-     # REPLACE THIS LINE AS WELL AS APPROPRIATE
+	tvserie = []
+	tvseries = []
+	
+	for i in range(50): 
+		tvserie.append(titles[i])
+		tvserie.append(ratings[i])
+		tvserie.append(genres[i])
+		tvserie.append(actors[i])
+		tvserie.append(runtimes[i])
+		tvseries.append(tvserie)
+		tvserie = []
 
+	return tvseries
+ 
 
 def save_csv(outfile, tvseries):
-    """
-    Output a CSV file containing highest rated TV-series.
-    """
-    writer = csv.writer(outfile)
-    writer.writerow(['Title', 'Rating', 'Genre', 'Actors', 'Runtime'])
-
-    # ADD SOME CODE OF YOURSELF HERE TO WRITE THE TV-SERIES TO DISK
+	writer = csv.writer(outfile)
+	writer.writerow(['Title', 'Rating', 'Genre', 'Actors', 'Runtime'])
+	
+	for i in range(50):
+		writer.writerow(tvseries[i])
+    
+    #Output a CSV file containing highest rated TV-series.
+        # ADD SOME CODE OF YOURSELF HERE TO WRITE THE TV-SERIES TO DISK
 
 
 def simple_get(url):
