@@ -59,7 +59,7 @@ def extract_tvseries(dom):
 			
 			# make sure comma is placed only between a serie's actors
 			if i != len(stars) - 1:
-				actors_string += ","	
+				actors_string += ", "	
 			i += 1
 	
 		actors.append(actors_string)
