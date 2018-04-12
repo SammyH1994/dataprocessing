@@ -18,54 +18,59 @@ OUTPUT_CSV = 'tvseries.csv'
 
 
 def extract_tvseries(dom):
+	"""
+	Scrapes IMDB for the 50 highest rated tvseries and 
+	creates a list of the titles, ratings, genres, actors and runtimes.
+    """
 	
 	# extract titles
 	titles = []
-	for link in dom.find_all("h3", "lister-item-header"):
-		title = link.contents[3]
+	
+	for title in dom.find_all("h3", "lister-item-header"):
+		title = title.contents[3]	
 		if not title:
 			break
 		titles.append(title.string)
 
-		
 	# extract ratings
 	ratings = []
+	
 	for rating in dom.find_all("span", "value"):
-		rate = rating.contents[0]
-		ratings.append(rate.string)
+		rating = rating.contents[0]
+		ratings.append(rating.string)
 		
 	# extract genres
 	genres = []
+	
 	for genre in dom.find_all("span", "genre"):
 		genre = genre.contents[0]
 		genres.append(genre.string.strip())
 		
 	# extract actors
 	actors = []
-	cast = ""
 	
-	for children in dom.find_all("div", "lister-item-content"):
+	for children in dom.find_all("div","lister-item-content"):
 		i = 0
-		cast = ""
+		actors_string = ""
+		stars = children(href=re.compile("adv_li_st"))
 		
-		for stars in children(href=re.compile("adv_li_st")):
-			amount_stars = len(children(href=re.compile("adv_li_st")))
-			cast += stars.string
-			if i != amount_stars - 1:
-				cast += ","	
+		for star in stars:
+			actors_string += star.string
+			
+			# make sure comma is placed only between a serie's actors
+			if i != len(stars) - 1:
+				actors_string += ","	
 			i += 1
 	
-		actors.append(cast)
-	print(actors)
-		
-
-		
-	# extract runtime 
+		actors.append(actors_string)
+			
+	# extract runtimes
 	runtimes = []
 	for runtime in dom.find_all("span", "runtime"):
 		runtime = runtime.contents[0]
 		runtimes.append(runtime.string.strip(" min"))
 
+	# create tvseries list
 	tvserie = []
 	tvseries = []
 	
@@ -82,16 +87,16 @@ def extract_tvseries(dom):
  
 
 def save_csv(outfile, tvseries):
+	"""
+	Writes the 50 highest rated tvseries to a CSV file.
+	"""
+	
 	writer = csv.writer(outfile)
 	writer.writerow(['Title', 'Rating', 'Genre', 'Actors', 'Runtime'])
-	
+
 	for i in range(50):
 		writer.writerow(tvseries[i])
-    
-    #Output a CSV file containing highest rated TV-series.
-        # ADD SOME CODE OF YOURSELF HERE TO WRITE THE TV-SERIES TO DISK
-
-
+ 
 def simple_get(url):
     """
     Attempts to get the content at `url` by making an HTTP GET request.
