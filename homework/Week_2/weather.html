@@ -367,70 +367,115 @@
 </textarea>
 
 <canvas id = "canvas" width = "1000" height = "1000">
-	This is my Canvas
+	
 </canvas>
  
  <script>
- let data = document.getElementById("rawdata").value
- let dataLength = data.length - 1
- let array = [dataLength]
- //console.log(data.length)
  
- array = data.split("\n")
- //console.log(array)
+ // retrieve data 
+ let data = document.getElementById("rawdata").value;
+
+ // split data on lines
+ let array = data.split("\n");
+ let dataLength = array.length - 1;
+
+ let dates = [];
+ let temps = [];
+ let months = [];
+ let days = [];
+ let years = [];
+ let dataPair = [];
+ let startDate = 0;
+ let millisecondsInDay = 86400000;
  
- dates = [dataLength/2]
- months = [dataLength/2]
- days = [dataLength/2]
- years = [dataLength/2]
- temps = [dataLength/2]
+ // split data into dates and temperatures
+ for (let i = 0; i < dataLength; i++){
  
- console.log(dates.length)
- //date  = new Date("20180401")
- //console.log(date)
- let dataPair = [2]
- for (let i = 0; i < array.length-1; i++){
-	dataPair = array[i].split(",")
-	years[i] = dataPair[0].substring(0,4)
-	days[i] = dataPair[0].substring(6,8)
-	months[i] = (dataPair[0].substring(4,6))
-	dates[i] = new Date (years[i] + "-" + months[i] + "-" + days[i])
-	dates[i] = dates[i].getTime()/86400000-17256;
-	temps[i] = Number(dataPair[1])
+	// separate dates and temps
+	dataPair = array[i].split(",");
+	
+	// transform temperatures into numbers
+	temps[i] = Number(dataPair[1]);
+	
+	// transform dates into proper format 
+	years[i] = dataPair[0].substring(0,4);
+	days[i] = dataPair[0].substring(6,8);
+	months[i] = (dataPair[0].substring(4,6));
+	dates[i] = new Date ([years[i], months[i], days[i]].join("-"));
+	
+	// get startDate in days 
+	if (i === 0){
+		startDate = dates[0].getTime() / millisecondsInDay;
+	}
+	
+	// transform dates into days from 1 to 365
+	dates[i] = dates[i].getTime() / millisecondsInDay;
+	dates[i] = dates[i] - (startDate - 1);
  }
  
- //dates = new Date(dates)
+ // start a new canvas context
+ let canvas = document.getElementById("canvas");
+ let ctx = canvas.getContext("2d");
 
- console.log(dataLength)
- console.log(dates)
- console.log(temps)
+ // create x and y axes for graph
+ let xMin = 70;
+ let xMax = 800;
+ let yMin = 25;
+ let yMax = 536;
  
- //transformeerfunctie
+ // create y-axis
+ ctx.beginPath();
+ ctx.moveTo(xMin,yMin);
+ ctx.lineTo(xMin,yMax);
+ ctx.stroke();
  
- let tempDomain = [Math.min.apply(0, temps), Math.max.apply(0, temps)]
- let dateDomain = [Math.min.apply(0, dates), Math.max.apply(0, dates)]
- let dateRange = [70,800]
- let tempRange = [500, 25]
+ // create x-axis
+ ctx.moveTo(xMin,yMax);
+ ctx.lineTo(xMax,yMax);
+ ctx.stroke();
  
- console.log(dateDomain)
+ // create graph title
+ ctx.fillStyle = "black";
+ ctx.font = "20px serif";
+ ctx.fillText('Mean Temperatures in \"de Bilt\"', (xMax-xMin)/2, 20);
  
+ // create x-label
+ ctx.fillStyle = "black";
+ ctx.font = "20px serif";
+ ctx.fillText('Date in Months', (xMax-xMin)/2, 590);
+ 
+ // create y-label 
+ // rotating text from: https://stackoverflow.com/questions/3167928/drawing-rotated-text-on-a-html5-canvas
+ ctx.save();
+ ctx.translate(15, (yMax-yMin)/2);
+ ctx.rotate(-Math.PI/2);
+ ctx.textAlign = "center";
+ ctx.fillText("Temperature in degrees Celsius (divided by 10)", 15, 0);
+ ctx.restore();
+ 
+ 
+ // create domains and ranges of temps and dates
+ let tempDomain = [Math.min.apply(0, temps), Math.max.apply(0, temps)];
+ let dateDomain = [Math.min.apply(0, dates), Math.max.apply(0, dates)];
+ let dateRange = [xMin,xMax];
+ 
+ // yMax - 35 for y-axis readability (minimum temp is -66, axis from -100 to 250)
+ let tempRange = [yMax-35, yMin];
 
+ /** 
+ createTranform returns a function that, for a given domain and range, 
+ calculates at which coordinate the next data point will be plotted.
+ **/
  function createTransform(domain, range){
-	// domain is a two-element array of the data bounds [domain_min, domain_max]
-	// range is a two-element array of the screen bounds [range_min, range_max]
-	// this gives you two equations to solve:
-	// range_min = alpha * domain_min + beta
-	// range_max = alpha * domain_max + beta
- 		// a solution would be:
 
-    var domain_min = domain[0]
-    var domain_max = domain[1]
-    var range_min = range[0]
-    var range_max = range[1]
+    let domain_min = domain[0];
+    let domain_max = domain[1];
+    let range_min = range[0];
+    let range_max = range[1];
 
     // formulas to calculate the alpha and the beta
-   	var alpha = (range_max - range_min) / (domain_max - domain_min)
-    var beta = range_max - alpha * domain_max
+   	let alpha = (range_max - range_min) / (domain_max - domain_min);
+    let beta = range_max - alpha * domain_max;
 
     // returns the function for the linear transformation (y= a * x + b)
     return function(x){
@@ -438,56 +483,24 @@
     }
 }
  
- createTemp = createTransform(tempDomain, tempRange)
- createDate = createTransform(dateDomain, dateRange)
+ // functions to create temperature and date coordinates
+ createTemp = createTransform(tempDomain, tempRange);
+ createDate = createTransform(dateDomain, dateRange);
  
- tempCoordinates = []
- dateCoordinates = []
- 
- for (i = 0; i < temps.length; i++){
-	tempCoordinates[i] = createTemp(temps[i])
-	dateCoordinates[i] = createDate(dates[i])
-}
 
-console.log(tempCoordinates)
-console.log(dateCoordinates)
  
-// canvas gedoe
- 
- let canvas = document.getElementById("canvas");
- let ctx = canvas.getContext("2d");
+ // create each 
+ //for (i = 0; i < dataLength; i++){
+	//tempCoordinates[i] = createTemp(temps[i])
+	//dateCoordinates[i] = createDate(dates[i])
+//}
 
 
- ctx.beginPath();
- ctx.moveTo(70,25);
- ctx.lineTo(70,536);
- ctx.stroke();
- 
- ctx.moveTo(70,536)
- ctx.lineTo(800,536)
- ctx.stroke();
- 
- ctx.fillStyle = "black";
- ctx.font = '20px serif';
- ctx.fillText('Date in Months', (800-50)/2, 590);
- 
- ctx.fillStyle = "black";
- ctx.font = '20px serif';
- ctx.fillText('Temperatures in De \"Bilt\"', (800-50)/2, 20);
- 
- 
- // https://stackoverflow.com/questions/3167928/drawing-rotated-text-on-a-html5-canvas
- // rotating text
- ctx.save();
- ctx.translate(15, (536-25)/2);
- ctx.rotate(-Math.PI/2);
- ctx.textAlign = "center";
- ctx.fillText("Temperature in degrees Celsius (divided by 10)", 15, 0);
- ctx.restore();
  
  
 
- months = ["Apr.", "May", "June", "July", "Aug.", "Sept.", "Okt", "Nov.", "Dec.", "Jan.", "Feb.", "March"]
+ let monthNames = ["Apr.", "May", "June", "July", "Aug.", "Sept.", "Okt", "Nov.", "Dec.", "Jan.", "Feb.", "March"]
+ let yearsString = ["2017", "2018"]
  
  monthsLocation = []
  xCoordinateMonths = 0
@@ -497,31 +510,40 @@ console.log(dateCoordinates)
 }
 
  counter = 0;
-
-
+ counter2 = 0
+ 
+ // initialize drawing path at first datapoint
+ tempCoordinate = createTemp(temps[0]);
+ dateCoordinate = createDate(dates[0]);
  ctx.beginPath();
- ctx.moveTo(dateCoordinates[0],tempCoordinates[0]);
- for (i = 0; i < temps.length; i++){
-	ctx.lineTo(dateCoordinates[i],tempCoordinates[i]);
+ ctx.moveTo(dateCoordinate, tempCoordinate);
+ 
+ for (i = 0; i < dataLength; i++){
+	dateCoordinate = createDate(dates[i])
+	tempCoordinate = createTemp(temps[i])
+	ctx.lineTo(dateCoordinate,tempCoordinate);
 	ctx.stroke();
 	ctx.closePath();
 	
 	if (monthsLocation.includes(i) ){
 	ctx.font = '15px serif';
-	ctx.fillText(months[counter], dateCoordinates[i], 560)
+	ctx.fillText(monthNames[counter], dateCoordinate, 560)
 	
 	ctx.beginPath();
-	ctx.moveTo(dateCoordinates[i], 536)
-	ctx.lineTo(dateCoordinates[i], 546)
+	ctx.moveTo(dateCoordinate, 536)
+	ctx.lineTo(dateCoordinate, 546)
 	ctx.stroke();
 	ctx.closePath();	
 
 		
 	counter += 1 
 		}
-
+	if (i === 0 || i === 248){
+		ctx.fillText(yearsString[counter2], dateCoordinate, 580)
+		counter2 += 1
+	}
 	ctx.beginPath;
-	ctx.moveTo(dateCoordinates[i], tempCoordinates[i]);
+	ctx.moveTo(dateCoordinate, tempCoordinate);
 }
 
 // 0 naar 486
