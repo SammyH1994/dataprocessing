@@ -1,6 +1,3 @@
----
-layout: default
----
 <!DOCTYPE html>
 <html>
 <header>
@@ -19,8 +16,7 @@ layout: default
 
  <script>
  
- // retrieve data from Github using XMLHttpRequest
- // help from https://developer.mozilla.org/nl/docs/Web/API/XMLHttpRequest/Using_XMLHttpRequest
+ // function is executed when data is retrieved from GitHub
  function reqListener () {
  
  let data = this.responseText;
@@ -31,28 +27,21 @@ layout: default
 
  let dates = [];
  let temps = [];
- let months = [];
- let days = [];
- let years = [];
  let dataPair = [];
  let startDate = 0;
  let millisecondsInDay = 86400000;
- 
+
  // split data into dates and temperatures
  for (let i = 0; i < dataLength; i++){
  
 	// separate dates and temps
 	dataPair = array[i].split(",");
 	
-	// transform temperatures into numbers
+	// transform temperatures and dates to proper format
 	temps[i] = Number(dataPair[1]);
-	
-	// transform dates into proper format 
-	years[i] = dataPair[0].substring(0,4);
-	days[i] = dataPair[0].substring(6,8);
-	months[i] = (dataPair[0].substring(4,6));
-	dates[i] = new Date ([years[i], months[i], days[i]].join("-"));
-	
+	dates[i] = new Date ([dataPair[0].slice(0,4), dataPair[0].slice(4,6), 
+		dataPair[0].slice(6,8)].join("-"));
+
 	// get startDate in days 
 	if (i === 0){
 		startDate = dates[0].getTime() / millisecondsInDay;
@@ -62,7 +51,7 @@ layout: default
 	dates[i] = dates[i].getTime() / millisecondsInDay;
 	dates[i] = dates[i] - (startDate - 1);
  }
- 
+
  // start a new canvas context
  let canvas = document.getElementById("canvas");
  let ctx = canvas.getContext("2d");
@@ -72,6 +61,11 @@ layout: default
  let xMax = 800;
  let yMin = 25;
  let yMax = 500;
+ 
+ // variables to change amount of ticks and values on y-axis
+ let yTicks = 8;
+ let yMinTemp = -100;
+ let yMaxTemp = 250;
  
  // create y-axis
  ctx.beginPath();
@@ -88,30 +82,30 @@ layout: default
  ctx.fillStyle = "black";
  ctx.font = "20px serif";
  ctx.textAlign = "center";
- ctx.fillText("Mean Temperatures in \"de Bilt\"", 800/2, yMin - 5);
+ ctx.fillText("Mean Temperatures in \"de Bilt\"", xMax / 2, yMin - 5);
  
  // create x-label
  ctx.fillStyle = "black";
  ctx.font = "20px serif";
- ctx.fillText("Date in Months", 800/2, yMax + 50);
+ ctx.fillText("Date in Months", xMax / 2, yMax + 50);
  
  // create y-label 
  // rotating text from: https://stackoverflow.com/questions/3167928/drawing-rotated-text-on-a-html5-canvas
  ctx.save();
- ctx.translate(yMin - 10, (yMax-yMin)/2 + 37.5);
+ ctx.translate(yMin - 10, (yMax - yMin) / 2 + 37.5);
  ctx.rotate(-Math.PI/2);
  ctx.fillText("Temperature in degrees Celsius (divided by 10)", yMin - 10, 0);
  ctx.restore();
  
  // create domains and ranges of temps and dates
- minTemp = Math.min.apply(0,temps)
- maxTemp = Math.max.apply(0, temps)
+ minTemp = Math.min.apply(0, temps);
+ maxTemp = Math.max.apply(0, temps);
  let tempDomain = [minTemp, maxTemp];
  let dateDomain = [Math.min.apply(0, dates), Math.max.apply(0, dates)];
- let dateRange = [xMin,xMax];
+ let dateRange = [xMin, xMax];
  
  // axis goes from -100 to 250
- let tempRange = [yMax - (100 + minTemp) , yMin + (250 - maxTemp)];
+ let tempRange = [yMax - (Math.abs(yMinTemp) + minTemp) , yMin + (yMaxTemp - maxTemp)];
 
  /** 
  createTranform returns a function that, for a given domain and range, 
@@ -119,47 +113,60 @@ layout: default
  **/
  function createTransform(domain, range){
 
-    let domain_min = domain[0];
-    let domain_max = domain[1];
-    let range_min = range[0];
-    let range_max = range[1];
+	let domain_min = domain[0];
+	let domain_max = domain[1];
+	let range_min = range[0];
+	let range_max = range[1];
 
-    // formulas to calculate the alpha and the beta
-   	let alpha = (range_max - range_min) / (domain_max - domain_min);
-    let beta = range_max - alpha * domain_max;
+	// formulas to calculate the alpha and the beta
+	let alpha = (range_max - range_min) / (domain_max - domain_min);
+	let beta = range_max - alpha * domain_max;
 
-    // returns the function for the linear transformation (y= a * x + b)
-    return function(x){
-      return alpha * x + beta;
-    }
+	// returns the function for the linear transformation (y= a * x + b)
+	return function(x){
+	  return alpha * x + beta;
+	}
 }
  
  // functions to create temperature and date coordinates
  createTemp = createTransform(tempDomain, tempRange);
  createDate = createTransform(dateDomain, dateRange);
  
- // create array with x-coordinates for months
+ // create array with x-coordinates for months (31 chosen for simplicity)
  // help from http://www.jstips.co/en/javascript/create-range-0...n-easily-using-one-line/
  let monthsCoordinates = Array.from(new Array(12),(val, index) => index * 31);
  
  // arrays for labeling dates on x-axis
- let monthNames = ["Apr.", "May", "June", "July", "Aug.", "Sept.", "Okt", "Nov.", "Dec.", "Jan.", "Feb.", "March"];
+ let monthNames = ["Apr.", "May", "June", "July", "Aug.", "Sept.", "Okt", 
+	"Nov.", "Dec.", "Jan.", "Feb.", "March"];
  let yearsString = ["2017", "2018"];
  
  counterMonths = 0;
- counterYears = 0
+ counterYears = 0;
  
  // initialize drawing path at first datapoint
  tempCoordinate = createTemp(temps[0]);
  dateCoordinate = createDate(dates[0]);
- ctx.beginPath();
- ctx.moveTo(dateCoordinate, tempCoordinate);
- 
+
+
  // create graph
  for (i = 0; i < dataLength; i++){
-	// draw line to each new coordinate
+	
+	// begin path
+	ctx.beginPath();
+	ctx.moveTo(dateCoordinate, tempCoordinate);
+	
+	// get x and y coordinates
 	dateCoordinate = createDate(dates[i]);
 	tempCoordinate = createTemp(temps[i]);
+	
+	// create red-blue gradient
+	let myGradient = ctx.createLinearGradient(0, 0, 25, 500);
+	myGradient.addColorStop(0, "red");
+	myGradient.addColorStop(1, "blue");
+	ctx.strokeStyle = myGradient;
+	
+	// draw line to new coordinate
 	ctx.lineTo(dateCoordinate,tempCoordinate);
 	ctx.stroke();
 	ctx.closePath();
@@ -175,6 +182,7 @@ layout: default
 		ctx.beginPath();
 		ctx.moveTo(dateCoordinate, yMax);
 		ctx.lineTo(dateCoordinate, yMax + 10);
+		ctx.strokeStyle = "black";
 		ctx.stroke();
 		ctx.closePath();		
 		
@@ -185,21 +193,17 @@ layout: default
 		}
 		counterMonths += 1;
 	}
-	
-	// start path again at current coordinate
-	ctx.beginPath;
-	ctx.moveTo(dateCoordinate, tempCoordinate);
 }
 
-let tempGraph = -100;
+let tempGraph = yMinTemp;
 let yCoordinateTemps = yMax;
 
 // draw ticks and temperatures on y-axis from -100 to 250
-for (i = 0; i < 8; i++){
+for (i = 0; i < yTicks; i++){
 
 	// temperatures
 	ctx.textAlign = "center";
-	ctx.fillText(tempGraph.toString(), xMin - 25, yCoordinateTemps);
+	ctx.fillText(Math.round(tempGraph).toString(), xMin - 25, yCoordinateTemps);
 	
 	// ticks
 	ctx.beginPath();
@@ -209,18 +213,19 @@ for (i = 0; i < 8; i++){
 	ctx.stroke();
 	
 	// update y location and temperature
-	yCoordinateTemps -= (yMax-yMin)/7;
-	tempGraph += 50;
+	yCoordinateTemps -= (yMax - yMin) / (yTicks - 1);
+	tempGraph += (yMaxTemp + Math.abs(yMinTemp)) / (yTicks - 1);
 }
 
 }
 
-let url = "https://raw.githubusercontent.com/SammyH1994/dataprocessing/master/homework/Week_2/weather_data.txt";
-
-let oReq = new XMLHttpRequest();
-oReq.addEventListener('load', reqListener);
-oReq.open("get", url, true);
-oReq.send();
+ //retrieve data from Github using XMLHttpRequest
+ // help from https://developer.mozilla.org/nl/docs/Web/API/XMLHttpRequest/Using_XMLHttpRequest
+ let url = "https://raw.githubusercontent.com/SammyH1994/dataprocessing/master/homework/Week_2/weather_data.txt";
+ let oReq = new XMLHttpRequest();
+ oReq.addEventListener('load', reqListener);
+ oReq.open("get", url, true);
+ oReq.send();
 
  </script>
  </html>
