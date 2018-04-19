@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+---
+layout: default
+---
 <html>
 <header>
 	<h2 align = "center">
@@ -19,7 +22,8 @@
  // retrieve data from Github using XMLHttpRequest
  // help from https://developer.mozilla.org/nl/docs/Web/API/XMLHttpRequest/Using_XMLHttpRequest
  function reqListener () {
-  let data = this.responseText
+ 
+ let data = this.responseText;
 
  // split data on lines
  let array = data.split("\n");
