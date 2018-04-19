@@ -421,7 +421,7 @@
  let xMin = 70;
  let xMax = 800;
  let yMin = 25;
- let yMax = 536;
+ let yMax = 500;
  
  // create y-axis
  ctx.beginPath();
@@ -437,30 +437,31 @@
  // create graph title
  ctx.fillStyle = "black";
  ctx.font = "20px serif";
- ctx.fillText('Mean Temperatures in \"de Bilt\"', (xMax-xMin)/2, 20);
+ ctx.fillText("Mean Temperatures in \"de Bilt\"", (xMax-xMin)/2, yMin - 5);
  
  // create x-label
  ctx.fillStyle = "black";
  ctx.font = "20px serif";
- ctx.fillText('Date in Months', (xMax-xMin)/2, 590);
+ ctx.fillText("Date in Months", (xMax-xMin)/2, yMax + 50);
  
  // create y-label 
  // rotating text from: https://stackoverflow.com/questions/3167928/drawing-rotated-text-on-a-html5-canvas
  ctx.save();
- ctx.translate(15, (yMax-yMin)/2);
+ ctx.translate(yMin - 10, (yMax-yMin)/2);
  ctx.rotate(-Math.PI/2);
  ctx.textAlign = "center";
- ctx.fillText("Temperature in degrees Celsius (divided by 10)", 15, 0);
+ ctx.fillText("Temperature in degrees Celsius (divided by 10)", yMin - 10, 0);
  ctx.restore();
  
- 
  // create domains and ranges of temps and dates
- let tempDomain = [Math.min.apply(0, temps), Math.max.apply(0, temps)];
+ minTemp = Math.min.apply(0,temps)
+ maxTemp = Math.max.apply(0, temps)
+ let tempDomain = [minTemp, maxTemp];
  let dateDomain = [Math.min.apply(0, dates), Math.max.apply(0, dates)];
  let dateRange = [xMin,xMax];
  
- // yMax - 35 for y-axis readability (minimum temp is -66, axis from -100 to 250)
- let tempRange = [yMax-35, yMin];
+ // axis goes from -100 to 250
+ let tempRange = [yMax - (100 + minTemp) , yMin + (250 - maxTemp)];
 
  /** 
  createTranform returns a function that, for a given domain and range, 
@@ -487,30 +488,16 @@
  createTemp = createTransform(tempDomain, tempRange);
  createDate = createTransform(dateDomain, dateRange);
  
-
+ // create array with x-coordinates for months
+ // help from http://www.jstips.co/en/javascript/create-range-0...n-easily-using-one-line/
+ let monthsCoordinates = Array.from(new Array(12),(val, index) => index * 31);
  
- // create each 
- //for (i = 0; i < dataLength; i++){
-	//tempCoordinates[i] = createTemp(temps[i])
-	//dateCoordinates[i] = createDate(dates[i])
-//}
-
-
+ // arrays for labeling dates on x-axis
+ let monthNames = ["Apr.", "May", "June", "July", "Aug.", "Sept.", "Okt", "Nov.", "Dec.", "Jan.", "Feb.", "March"];
+ let yearsString = ["2017", "2018"];
  
- 
-
- let monthNames = ["Apr.", "May", "June", "July", "Aug.", "Sept.", "Okt", "Nov.", "Dec.", "Jan.", "Feb.", "March"]
- let yearsString = ["2017", "2018"]
- 
- monthsLocation = []
- xCoordinateMonths = 0
- for (i = 0; i < 12; i++){
- 	monthsLocation[i] = xCoordinateMonths
-	xCoordinateMonths += 31
-}
-
- counter = 0;
- counter2 = 0
+ counterMonths = 0;
+ counterYears = 0
  
  // initialize drawing path at first datapoint
  tempCoordinate = createTemp(temps[0]);
@@ -518,56 +505,63 @@
  ctx.beginPath();
  ctx.moveTo(dateCoordinate, tempCoordinate);
  
+ // create graph
  for (i = 0; i < dataLength; i++){
-	dateCoordinate = createDate(dates[i])
-	tempCoordinate = createTemp(temps[i])
+ 
+	// draw line to each new coordinate
+	dateCoordinate = createDate(dates[i]);
+	tempCoordinate = createTemp(temps[i]);
 	ctx.lineTo(dateCoordinate,tempCoordinate);
 	ctx.stroke();
 	ctx.closePath();
 	
-	if (monthsLocation.includes(i) ){
-	ctx.font = '15px serif';
-	ctx.fillText(monthNames[counter], dateCoordinate, 560)
+	// draw ticks, months and year on x-axis
+	if (monthsCoordinates.includes(i) ){
 	
-	ctx.beginPath();
-	ctx.moveTo(dateCoordinate, 536)
-	ctx.lineTo(dateCoordinate, 546)
-	ctx.stroke();
-	ctx.closePath();	
-
+		// months
+		ctx.font = "15px serif";
+		ctx.fillText(monthNames[counterMonths], dateCoordinate, yMax + 25);
+		ctx.beginPath();
 		
-	counter += 1 
+		// ticks
+		ctx.moveTo(dateCoordinate, yMax);
+		ctx.lineTo(dateCoordinate, yMax + 10);
+		ctx.stroke();
+		ctx.closePath();		
+		
+		// year
+		if (monthNames[counterMonths] === "Apr." || monthNames[counterMonths] === "Jan."){
+			ctx.fillText(yearsString[counterYears], dateCoordinate, yMax + 45);
+			counterYears += 1;
 		}
-	if (i === 0 || i === 248){
-		ctx.fillText(yearsString[counter2], dateCoordinate, 580)
-		counter2 += 1
+		counterMonths += 1;
 	}
+	
+	// start path again at current coordinate
 	ctx.beginPath;
 	ctx.moveTo(dateCoordinate, tempCoordinate);
 }
 
-// 0 naar 486
-// 486/9
-let temperature = -100
-let yLocationTemps = 536
+let tempGraph = -100;
+let yCoordinateTemps = yMax;
 
+// draw ticks and temperatures on y-axis from -100 to 250
 for (i = 0; i < 8; i++){
-	console.log(yLocationTemps)
-	ctx.fillText(temperature.toString(), 35, yLocationTemps);
+
+	// temperatures
+	ctx.textAlign = "center";
+	ctx.fillText(tempGraph.toString(), xMin - 25, yCoordinateTemps);
 	
+	// ticks
 	ctx.beginPath();
-	ctx.moveTo(70, yLocationTemps)
-	ctx.lineTo(60, yLocationTemps)
+	ctx.moveTo(xMin, yCoordinateTemps);
+	ctx.lineTo(xMin - 10, yCoordinateTemps);
 	ctx.stroke();
 	
-	yLocationTemps -= (536-25)/7
-
-	temperature += 50
+	// update y location and temperature
+	yCoordinateTemps -= (yMax-yMin)/7;
+	tempGraph += 50;
 }
 
-console.log(tempDomain)
-
-let bla = tempDomain[1] - tempDomain[0]
-console.log(bla)
  </script>
 
