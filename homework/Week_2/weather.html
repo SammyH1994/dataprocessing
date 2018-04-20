@@ -96,7 +96,7 @@
 				ctx.save();
 				ctx.translate(yMin - 10, (yMax - yMin) / 2 + 37.5);
 				ctx.rotate(-Math.PI/2);
-				ctx.fillText("Temperature in degrees Celsius (divided by 10)", 
+				ctx.fillText("Temperature in degrees Celsius", 
 					yMin - 10, 0);
 				ctx.restore();
 				 
@@ -202,7 +202,7 @@
 					}
 				}
 
-				let tempGraph = yMinTemp;
+				let tempGraph = yMinTemp / 10;
 				let yCoordinateTemps = yMax;
 
 				// draw ticks and temperatures on y-axis from -100 to 250
@@ -220,9 +220,9 @@
 					ctx.lineTo(xMin - 10, yCoordinateTemps);
 					ctx.stroke();
 					
-					// update y location and temperature
+					// update y location and temperature in degrees Celsius
 					yCoordinateTemps -= (yMax - yMin) / (yTicks - 1);
-					tempGraph += (yMaxTemp + Math.abs(yMinTemp)) / (yTicks - 1);
+					tempGraph += (yMaxTemp + Math.abs(yMinTemp)) / (yTicks - 1) / 10;
 				}
 			}
 
