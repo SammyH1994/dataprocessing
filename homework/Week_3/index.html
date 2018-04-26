@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head align = "center">
+	<head align = "center">
 
-        <meta charset="utf-8">
-        <title>D3 Test</title>
-        <script type="text/javascript" src="d3/d3.v3.js"></script>
+		<meta charset="utf-8">
+		<title>D3 Test</title>
+		<script type="text/javascript" src="d3/d3.v3.js"></script>
 		<h1 align = "center"> US Mass Shootings 1966-2017 </h1>
 		<h2 align = "center"> Sammy Heutz, 10445765</h2>
 		
@@ -44,20 +44,19 @@
 		  left: 0;
 }	
 	</style>
-    </head>
+	</head>
 
-    <body align = "center">
+	<body align = "center">
 	
 		<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
-		
-        <script type="text/javascript">
+		<script type="text/javascript">
 		
 			// help for tooltips: http://bl.ocks.org/Caged/6476579
 			// help for barchart http://alignedleft.com/tutorials/d3/making-a-bar-chart
 		
 
 			// add bar chart information
-            d3.select("body").append("p").text("This bar chart displays the increase in mass shootings in the US from 1966-2017");
+			d3.select("body").append("p").text("This bar chart displays the increase in mass shootings in the US from 1966-2017");
 			
 			// retrieve data from json file
 			d3.json("mass_shootings.json", function(data){
@@ -70,8 +69,8 @@
 
 				// setting the dimensions of the graph
 				var margin = {top: 40, right: 40, bottom: 0, left: 40};
-				var w =  window.innerWidth - 200
-				var h = window.innerHeight  - 200
+				var w =	 window.innerWidth - 200
+				var h = window.innerHeight	- 200
 				var barPadding = 1;
 				
 				// setting the scales
@@ -92,7 +91,7 @@
 				// creating the svg element
 				var svg = d3.select("body")
 					.append("svg")
-					.attr("width", w + margin.left + margin.right)   
+					.attr("width", w + margin.left + margin.right)	 
 					.attr("height", h + margin.top + margin.bottom)
 					.append("g")
 					.attr("tranform", "translate(" + margin.left + "," + margin.top + ")");
@@ -140,6 +139,6 @@
 					.call(yAxis);		
 				});		
 		
-        </script>
-    </body>
-</html>     
+		</script>
+	</body>
+</html>		
