@@ -2,6 +2,7 @@
 <html>
 	<header>
 		<h2 align = "center"> How does income relate to employment rates?</h2>
+		<h3 align = "center"> Sammy Heutz, 10445765 </h3>
 	    <link href="scatter.css" rel="stylesheet"/>
 
 		<script src="https://d3js.org/d3.v3.js"></script>
@@ -9,9 +10,31 @@
 		<script src="https://d3js.org/d3-collection.v1.min.js"></script>
 		<script src="https://d3js.org/d3-dispatch.v1.min.js"></script>			
 		<script src="https://d3js.org/d3-dsv.v1.min.js"></script>	
-		<script src="scatter.js"></script>
+
+
 	</header>
 	<body>
+<p align = "center"> 
+	This scatterplot displays the relationship between gross national income per capita (in dollars)
+	and employment rates in several different countries in different continents for the years 2011-2015.
+	You can choose a year to display below.
+	</br></br>
+	Data source:
+
+<div align = "center">	
+<p> Please select a year: </p>
+  <select id="dropdown" name="years">
+    <option value="2011">2011</option>
+    <option value="2012">2012</option>	
+    <option value="2013">2013</option>
+    <option value="2014">2014</option>
+	</br>
+  </select>
+</div>
+
+
+
+		<script src="scatter.js"></script>
 
 	</body>
 </html>
