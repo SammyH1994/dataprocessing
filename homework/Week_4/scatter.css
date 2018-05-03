@@ -1,6 +1,6 @@
 body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  position: relative;
+  text-align: center;
   width: 960px;
 }
 
@@ -20,9 +20,7 @@ body {
   fill-opacity: .9;
 }
 
-.bar:hover {
-  fill: orange;
-}
+
 
 label {
   position: absolute;
@@ -82,3 +80,5 @@ tooltip {
 /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
 .show {display:block;}
 }
+
+
