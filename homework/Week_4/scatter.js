@@ -1,5 +1,8 @@
-// Scatter.js 
-// Sammy Heutz, 10445765
+/* Scatter.js creates a scatterplot using data from OECD. The data consists
+of the incomes and employment rates from a number of countries from 2011-2014.
+
+Sammy Heutz, 10445765
+*/
 
 window.onload = function() {	
 	
@@ -8,7 +11,7 @@ window.onload = function() {
 	
 	
 	// retrieve data from OECD API
-	let data = "http://stats.oecd.org/SDMX-JSON/data/CSPCUBE/NATINCCAP_T1+EMPLGNDR_T1C.AUS+AUT+BEL+CAN+CHL+USA+DNK+EST+FIN+FRA+DEU+GRC+MEX+ISL+IRL+ISR+ITA+JPN+KOR+LVA/all?startTime=2011&endTime=2014&dimensionAtObservation=allDimensions&pid=7adc5e21-c667-410c-9b9d-c159b98a13bc"
+	let data = "https://stats.oecd.org/SDMX-JSON/data/CSPCUBE/NATINCCAP_T1+EMPLGNDR_T1C.AUS+AUT+BEL+CAN+CHL+USA+DNK+EST+FIN+FRA+DEU+GRC+MEX+ISL+IRL+ISR+ITA+JPN+KOR+LVA/all?startTime=2011&endTime=2014&dimensionAtObservation=allDimensions&pid=7adc5e21-c667-410c-9b9d-c159b98a13bc"
 
 	function callback(data){
 

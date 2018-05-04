@@ -1,3 +1,9 @@
+/* Scatter.css is the stylesheet of the webpage that uses scatter.js to 
+create a scatterplot.
+
+Sammy Heutz, 10445765 
+*/
+
 body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   text-align: center;
@@ -15,26 +21,11 @@ body {
   shape-rendering: crispEdges;
 }
 
-.bar {
-  fill: steelblue;
-  fill-opacity: .9;
-}
-
-
-
 label {
   position: absolute;
   top: 10px;
   right: 10px;
   
-  
-tooltip {
-  position: absolute;
-  width: 200px;
-  height: 28px;
-  pointer-events: none;
-}
-
 /* Dropdown Button */
 .dropbtn {
     background-color: #3498DB;
@@ -45,7 +36,8 @@ tooltip {
     cursor: pointer;
 }
 
-/* Dropdown button on hover & focus */
+/* Help from: https://www.w3schools.com/howto/howto_js_dropdown.asp
+ Dropdown button on hover & focus */
 .dropbtn:hover, .dropbtn:focus {
     background-color: #2980B9;
 }
