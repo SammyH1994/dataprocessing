@@ -243,7 +243,8 @@ window.onload = function() {
 
 		// update x axis
 		svg.selectAll("#xAxis")
-			.transition().duration(1000)
+			// transition not working when switching back from 2014
+			//.transition().duration(1000)
 			.call(xAxis);
 
 		// move the circles
