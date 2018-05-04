@@ -3,6 +3,10 @@
 
 window.onload = function() {	
 	
+	
+	// http://bl.ocks.org/jfreels/6871643
+	
+	
 	// retrieve data from OECD API
 	let data = "http://stats.oecd.org/SDMX-JSON/data/CSPCUBE/NATINCCAP_T1+EMPLGNDR_T1C.AUS+AUT+BEL+CAN+CHL+USA+DNK+EST+FIN+FRA+DEU+GRC+MEX+ISL+IRL+ISR+ITA+JPN+KOR+LVA/all?startTime=2011&endTime=2014&dimensionAtObservation=allDimensions&pid=7adc5e21-c667-410c-9b9d-c159b98a13bc"
 
@@ -61,7 +65,7 @@ window.onload = function() {
 	
 	// settings
 	let body = d3.select('body')
-	let margin = {top: 40, right: 40, bottom: 40, left: 40};
+	let margin = {top: 50, right: 40, bottom: 40, left: 40};
 	let w =	 window.innerWidth - 300;
 	let h = window.innerHeight - 300;
 	let color = d3.scale.category10();
@@ -163,19 +167,48 @@ window.onload = function() {
 	// functions to handle mouseover events 
 	// help from: http://bl.ocks.org/WilliamQLiu/76ae20060e19bf42d774
 	function mouseOver(d, i){
-		d3.select(this).attr('r',10);
+		d3.select(this)
+			.transition()
+			.duration(500)
+			.attr('r',10);
 		svg.append("text")
 			.attr({
 				id: "country" + d[3],
 				x: function() {return xScale(d[0] - 1000);},
+				y: function() {return yScale(d[1] + 3);}
+			})
+			
+			.text(function () {return "Country: " + d[3] + ""})
+			
+		svg.append("text")
+
+				.attr({
+				id: "income" + Math.floor(d[0]),
+				x: function() {return xScale(d[0] - 1000);},
+				y: function() {return yScale(d[1] + 2);}
+			})
+			
+			.text(function () {return "Income:  " + Math.floor(d[0]) + ""});
+			
+		svg.append("text")
+
+				.attr({
+				id: "employment" + Math.floor(d[1]),
+				x: function() {return xScale(d[0] - 1000);},
 				y: function() {return yScale(d[1] + 1);}
 			})
-			.text(function () {return "Country: " + d[3] + ""});
+			
+			.text(function () {return "Employment:  " + Math.floor(d[1]) + ""});
 		}
 	
 	function mouseOut(d, i){
-		d3.select(this).attr('r',5);
+		d3.select(this)
+			.transition()
+			.duration(500)
+			.attr('r',5);
 		d3.select("#country" + d[3]).remove();
+		d3.select("#income" + Math.floor(d[0])).remove();
+		d3.select("#employment" + Math.floor(d[1])).remove();
 	}	
 	
 	// on clicking option from dropdown
@@ -202,7 +235,7 @@ window.onload = function() {
 		xScale.domain([(d3.min(coordinates, function(d)
 		  {return d[0]; }))-10000, (d3.max(coordinates, function(d)
 		  {return d[0]; }))+10000]);
-		
+		  
 		xAxis.scale(xScale);
 
 		// update x axis
