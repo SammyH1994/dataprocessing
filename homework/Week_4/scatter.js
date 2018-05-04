@@ -6,9 +6,7 @@ Sammy Heutz, 10445765
 
 window.onload = function() {	
 	
-	
-	// http://bl.ocks.org/jfreels/6871643
-	
+	// help from: http://bl.ocks.org/jfreels/6871643
 	
 	// retrieve data from OECD API
 	let data = "https://stats.oecd.org/SDMX-JSON/data/CSPCUBE/NATINCCAP_T1+EMPLGNDR_T1C.AUS+AUT+BEL+CAN+CHL+USA+DNK+EST+FIN+FRA+DEU+GRC+MEX+ISL+IRL+ISR+ITA+JPN+KOR+LVA/all?startTime=2011&endTime=2014&dimensionAtObservation=allDimensions&pid=7adc5e21-c667-410c-9b9d-c159b98a13bc"
