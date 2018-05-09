@@ -62,6 +62,7 @@
 			// retrieve data from json file
 			d3.json("mass_shootings.json", function(data){
 			
+			console.log(data.mass_shootings.Date)
 				// parse Amount so that d3.max works
 				data.mass_shootings.forEach(function(d) {
 					d.Date = d.Date;

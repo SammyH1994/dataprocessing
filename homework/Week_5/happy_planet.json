@@ -1,0 +1,274 @@
+{"happy_planet":
+[
+    {
+        "HPI_Rank": "12",
+        "Country": "Norway",
+        "Life_Expectancy": "81.281",
+        "Well-being": "7.7",
+        "Footprint": "4.98",
+        "Inequality_of_Outcomes": "0.068553755",
+        "Happy_Planet_Index": "36.82705238"
+    },
+    {
+        "HPI_Rank": "15",
+        "Country": "Spain",
+        "Life_Expectancy": "82.192",
+        "Well-being": "6.3",
+        "Footprint": "3.67",
+        "Inequality_of_Outcomes": "0.101492729",
+        "Happy_Planet_Index": "35.95897674"
+    },
+    {
+        "HPI_Rank": "18",
+        "Country": "Netherlands",
+        "Life_Expectancy": "81.212",
+        "Well-being": "7.5",
+        "Footprint": "5.28",
+        "Inequality_of_Outcomes": "0.043220701",
+        "Happy_Planet_Index": "35.31545093"
+    },
+    {
+        "HPI_Rank": "24",
+        "Country": "Switzerland",
+        "Life_Expectancy": "82.6",
+        "Well-being": "7.8",
+        "Footprint": "5.79",
+        "Inequality_of_Outcomes": "0.059863953",
+        "Happy_Planet_Index": "34.33096962"
+    },
+    {
+        "HPI_Rank": "32",
+        "Country": "Denmark",
+        "Life_Expectancy": "79.832",
+        "Well-being": "7.5",
+        "Footprint": "5.51",
+        "Inequality_of_Outcomes": "0.071060884",
+        "Happy_Planet_Index": "32.67258209"
+    },
+    {
+        "HPI_Rank": "34",
+        "Country": "United Kingdom",
+        "Life_Expectancy": "80.392",
+        "Well-being": "6.9",
+        "Footprint": "4.94",
+        "Inequality_of_Outcomes": "0.092973914",
+        "Happy_Planet_Index": "31.90928632"
+    },
+    {
+        "HPI_Rank": "37",
+        "Country": "Finland",
+        "Life_Expectancy": "80.421",
+        "Well-being": "7.4",
+        "Footprint": "5.87",
+        "Inequality_of_Outcomes": "0.062135037",
+        "Happy_Planet_Index": "31.29336395"
+    },
+    {
+        "HPI_Rank": "43",
+        "Country": "Austria",
+        "Life_Expectancy": "81.004",
+        "Well-being": "7.4",
+        "Footprint": "6.06",
+        "Inequality_of_Outcomes": "0.071293505",
+        "Happy_Planet_Index": "30.47822433"
+    },
+    {
+        "HPI_Rank": "44",
+        "Country": "France",
+        "Life_Expectancy": "81.767",
+        "Well-being": "6.6",
+        "Footprint": "5.14",
+        "Inequality_of_Outcomes": "0.085242873",
+        "Happy_Planet_Index": "30.41350606"
+    },
+    {
+        "HPI_Rank": "48",
+        "Country": "Ireland",
+        "Life_Expectancy": "80.518",
+        "Well-being": "7",
+        "Footprint": "5.57",
+        "Inequality_of_Outcomes": "0.084939292",
+        "Happy_Planet_Index": "30.01652957"
+    },
+    {
+        "HPI_Rank": "49",
+        "Country": "Germany",
+        "Life_Expectancy": "80.573",
+        "Well-being": "6.7",
+        "Footprint": "5.3",
+        "Inequality_of_Outcomes": "0.083902882",
+        "Happy_Planet_Index": "29.81550359"
+    },
+    {
+        "HPI_Rank": "60",
+        "Country": "Italy",
+        "Life_Expectancy": "82.696",
+        "Well-being": "5.8",
+        "Footprint": "4.61",
+        "Inequality_of_Outcomes": "0.116598788",
+        "Happy_Planet_Index": "28.0765247"
+    },
+    {
+        "HPI_Rank": "61",
+        "Country": "Sweden",
+        "Life_Expectancy": "81.847",
+        "Well-being": "7.6",
+        "Footprint": "7.25",
+        "Inequality_of_Outcomes": "0.056707346",
+        "Happy_Planet_Index": "28.03492519"
+    },
+    {
+        "HPI_Rank": "79",
+        "Country": "Portugal",
+        "Life_Expectancy": "80.33",
+        "Well-being": "4.99",
+        "Footprint": "3.88",
+        "Inequality_of_Outcomes": "0.163386226",
+        "Happy_Planet_Index": "24.84739373"
+    },
+    {
+        "HPI_Rank": "87",
+        "Country": "Belgium",
+        "Life_Expectancy": "80.429",
+        "Well-being": "6.9",
+        "Footprint": "7.44",
+        "Inequality_of_Outcomes": "0.085372803",
+        "Happy_Planet_Index": "23.72652343"
+    },
+    {
+        "HPI_Rank": "89",
+        "Country": "Greece",
+        "Life_Expectancy": "80.505",
+        "Well-being": "5.1",
+        "Footprint": "4.38",
+        "Inequality_of_Outcomes": "0.158711241",
+        "Happy_Planet_Index": "23.62099962"
+    },
+    {
+        "HPI_Rank": "47",
+        "Country": "Croatia",
+        "Life_Expectancy": "76.961",
+        "Well-being": "6",
+        "Footprint": "3.92",
+        "Inequality_of_Outcomes": "0.117671766",
+        "Happy_Planet_Index": "30.16419853"
+    },
+    {
+        "HPI_Rank": "52",
+        "Country": "Serbia",
+        "Life_Expectancy": "74.495",
+        "Well-being": "5.2",
+        "Footprint": "2.7",
+        "Inequality_of_Outcomes": "0.190906214",
+        "Happy_Planet_Index": "29.04831258"
+    },
+    {
+        "HPI_Rank": "55",
+        "Country": "Romania",
+        "Life_Expectancy": "74.327",
+        "Well-being": "5.2",
+        "Footprint": "2.71",
+        "Inequality_of_Outcomes": "0.194374933",
+        "Happy_Planet_Index": "28.80149854"
+    },
+    {
+        "HPI_Rank": "59",
+        "Country": "Slovakia",
+        "Life_Expectancy": "75.872",
+        "Well-being": "5.9",
+        "Footprint": "4.06",
+        "Inequality_of_Outcomes": "0.128154772",
+        "Happy_Planet_Index": "28.22889686"
+    },
+    {
+        "HPI_Rank": "62",
+        "Country": "Poland",
+        "Life_Expectancy": "76.926",
+        "Well-being": "5.9",
+        "Footprint": "4.44",
+        "Inequality_of_Outcomes": "0.111454728",
+        "Happy_Planet_Index": "27.47118942"
+    },
+    {
+        "HPI_Rank": "64",
+        "Country": "Czech Republic",
+        "Life_Expectancy": "78.185",
+        "Well-being": "6.3",
+        "Footprint": "5.19",
+        "Inequality_of_Outcomes": "0.093970135",
+        "Happy_Planet_Index": "27.28409909"
+    },
+    {
+        "HPI_Rank": "69",
+        "Country": "Hungary",
+        "Life_Expectancy": "74.859",
+        "Well-being": "4.7",
+        "Footprint": "2.92",
+        "Inequality_of_Outcomes": "0.151546332",
+        "Happy_Planet_Index": "26.38318152"
+    },
+    {
+        "HPI_Rank": "70",
+        "Country": "Ukraine",
+        "Life_Expectancy": "70.317",
+        "Well-being": "5",
+        "Footprint": "2.84",
+        "Inequality_of_Outcomes": "0.167264184",
+        "Happy_Planet_Index": "26.38316245"
+    },
+    {
+        "HPI_Rank": "116",
+        "Country": "Russia",
+        "Life_Expectancy": "69.519",
+        "Well-being": "5.6",
+        "Footprint": "5.69",
+        "Inequality_of_Outcomes": "0.15916384",
+        "Happy_Planet_Index": "18.71017812"
+    },
+    {
+        "HPI_Rank": "118",
+        "Country": "Estonia",
+        "Life_Expectancy": "76.2",
+        "Well-being": "5.4",
+        "Footprint": "6.86",
+        "Inequality_of_Outcomes": "0.122325266",
+        "Happy_Planet_Index": "17.89502179"
+    },
+    {
+        "HPI_Rank": "76",
+        "Country": "Bosnia and Herzegovina",
+        "Life_Expectancy": "76.175",
+        "Well-being": "4.8",
+        "Footprint": "3.12",
+        "Inequality_of_Outcomes": "0.186044558",
+        "Happy_Planet_Index": "25.28549689"
+    },
+    {
+        "HPI_Rank": "107",
+        "Country": "Lithuania",
+        "Life_Expectancy": "72.804",
+        "Well-being": "5.8",
+        "Footprint": "5.83",
+        "Inequality_of_Outcomes": "0.112707659",
+        "Happy_Planet_Index": "21.0365657"
+    },
+    {
+        "HPI_Rank": "109",
+        "Country": "Bulgaria",
+        "Life_Expectancy": "73.913",
+        "Well-being": "4.2",
+        "Footprint": "3.32",
+        "Inequality_of_Outcomes": "0.192834223",
+        "Happy_Planet_Index": "20.44078927"
+    },
+    {
+        "HPI_Rank": "82",
+        "Country": "Slovenia",
+        "Life_Expectancy": "79.953",
+        "Well-being": "6.1",
+        "Footprint": "5.81",
+        "Inequality_of_Outcomes": "0.102227574",
+        "Happy_Planet_Index": "24.63884037"
+    }
+]
+}
