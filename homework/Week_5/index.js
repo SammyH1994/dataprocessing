@@ -1,101 +1,160 @@
+/*
+	Sammy Heutz, 10445765
+*/
 
+
+/* comments:
+Next week:
+Add linking --> when hovering over map: bar of country also lights up and vice versa
+or other linking?????
+Try to make colours more gradual?
+Add other variables?
+Bootstrapping styles etc
+Improve code
+Add data information + design choices
+*/
 
 window.onload = function() {	
 	
 	let quality_of_life = "/quality_of_life.json"
 	let happy_planet = "/happy_planet.json"
 	
+	// retrieve data
 	d3.queue()
 	.defer(d3.json, happy_planet)
 	.defer(d3.json, quality_of_life)
 	.await(callback);
-
 	
 	function callback(error, happy_planet, quality_of_life) {
 	if (error) throw error;
 	
-	dataLength = happy_planet.happy_planet.length
-	console.log(quality_of_life)
-	var series = []
-console.log()
-	for (var i = 0; i < dataLength; i++){
-		//HPI
-		series.push([getCountryCode(happy_planet.happy_planet[i].Country),happy_planet.happy_planet[i].Happy_Planet_Index])
-		
-		//QOL
-		//series.push([getCountryCode(quality_of_life.quality_of_life[i].Country), quality_of_life.quality_of_life[i].QOF_Rank])
+		 
+		dataLength = happy_planet.happy_planet.length
+
+		// variables for creating visualizations
+		var dataset = {}
+		var happy = happy_planet.happy_planet
+		var indexHPI = "HPI_Rank"
+		var rangeHPI = ["red", "green"]
+		var happyname = "Happy Planet Rank: "
+		var quality = quality_of_life.quality_of_life
+		var rankQOL = "QOF_Rank"
+		var rangeQOL = ["green", "red"]
+		var qualityname = "Quality of Life Rank: "
+		var happy_index = "Happy_Planet_Index"
+		var happy_name = "Happy Planet Index: "
+		var quality_index = "Quality_of_Life_Index"
+		var quality_name = "Quality of Life Index: "
+		var happyTitle = "Happy Planet Index Europe"
+		var qualityTitle = "Quality of Life Index Europe"
+
+		var seriesHPI = []
+		var seriesQOL = []
+
+		// data arrays to colour map based on value
+		for (var i = 0; i < dataLength; i++){
+			//HPI
+			seriesHPI.push([getCountryCode(happy_planet.happy_planet[i].Country),happy_planet.happy_planet[i].HPI_Rank])
+			
+			//QOL
+			seriesQOL.push([getCountryCode(quality_of_life.quality_of_life[i].Country), quality_of_life.quality_of_life[i].QOF_Rank])
+		}
+
+		// correct format for map colouring
+		quality.forEach(function(d) {
+			d[quality_index] = parseInt(d[quality_index])
+					});
+		happy.forEach(function(d) {
+			d[happy_index] = parseInt(d[happy_index])
+					});
+
+		// initial map settings (HPI)
+		var colour = createColour(happy,indexHPI,rangeHPI)
+		series = seriesHPI
+
+		series.forEach(function(item){ 
+	       var iso = item[0],
+	           value = item[1];
+	      dataset[iso] = { numberOfThings: value, fillColor: colour(value) }
+	  });
+
+	var countriesHappy = []
+	var countriesQuality = []
+
+	// country arrays for x scale
+	for (let i = 0; i < dataLength; i++){
+
+		countriesHappy[i] = happy[i].Country
+		countriesQuality[i] = quality[i].Country
 	}
 
-	console.log(series)
+	// set initial bar chart values
+	var container = d3.select("body").append("div")
+	    .attr("id", "barchart")
+	var xScale = setxScale(happy, happy_index, countriesHappy)
+	var yScale = setyScale(happy, happy_index, countriesHappy)
+	var tip = setTip(happy_name, happy_index)
 
+	// create initial map
+	var map = createMap(dataset, happyname )
 
-	 var dataset = {};
+	// creating initial barchart
+	createBarchart(container, tip, happy, countriesHappy, yScale, xScale, happy_index, happyTitle)
+			
+	// change data based on dropdown
+	document.getElementById("dropdown").onchange=function() {
 
-	 //QOL
-	//  var colour = d3.scale.linear()
-	// 	.domain([
- //    d3.min(quality_of_life.quality_of_life, function(d) { return d.QOF_Rank; }),
- //    d3.max(quality_of_life.quality_of_life, function(d) { return d.QOF_Rank; })
-	// ])
- //  .range(["red", "green"]);
+		let index = this.value;
+		
+		// values for Happy Planet
+		if (index === "HPI"){
+			colour = createColour(happy, indexHPI, rangeHPI);
+			series = seriesHPI
+			var name = happyname
+			tip = setTip(happy_name, happy_index)
+			var dataBar = happy
+			var countries = countriesHappy
+			var indx = happy_index
+			var title = happyTitle
+			}
 
-// HPI
-	var colour = d3.scale.linear()
-	.domain([
-    d3.min(happy_planet.happy_planet, function(d) { return d.Happy_Planet_Index; }),
-    d3.max(happy_planet.happy_planet, function(d) { return d.Happy_Planet_Index; })
-	])
-  .range(["red", "green"]);
+		// values for Quality of Life
+		else {
+			colour = createColour(quality, rankQOL, rangeQOL);
+			series = seriesQOL
+			var name = qualityname
 
-     // fill dataset in appropriate format
-    series.forEach(function(item){ //
-        // item example value ["USA", 70]
-        var iso = item[0],
-                value = item[1];
-        dataset[iso] = { numberOfThings: value, fillColor: colour(value) };
-    });
+			tip = setTip(quality_name, quality_index)
+			var dataBar = quality
+			var countries = countriesQuality
+			var indx = quality_index
+			var title = qualityTitle
+			};
 
-new Datamap({
-        element: document.getElementById('container'),
-        //projection: 'mercator', // big world map
-        setProjection: function (element) {
-            var projection = d3.geo.mercator()
-                    .center([30.864716, 55.349014]) // always in [East Latitude, North Longitude]
-                    .scale(380);
-                var path = d3.geo.path().projection(projection);
-                return { path: path, projection: projection };
-            },
-        // countries don't listed in dataset will be painted with this color
-        fills: { defaultFill: '#F5F5F5' },
-        data: dataset,
-        geographyConfig: {
-        	//dataUrl: '/europe.json'
-            borderColor: '#DEDEDE',
-            highlightBorderWidth: 2,
-            // don't change color on mouse hover
-            highlightFillColor: function(geo) {
-                return geo['fillColor'] || '#F5F5F5';
-            },
-            // only change border
-            highlightBorderColor: '#B7B7B7',
-            // show desired information in tooltip
-            popupTemplate: function(geo, data) {
-                // don't show tooltip if country don't present in dataset
-                if (!data) { return ; }
-                // tooltip content
-                return ['<div class="hoverinfo">',
-                    '<strong>', geo.properties.name, '</strong>',
-                    '<br>Happy Planet Index: <strong>', Math.round(data.numberOfThings), '</strong>',
-                    '</div>'].join('');
-            }
-          }
-      });
-  
+		// data for colouring map
+		series.forEach(function(item){ 
+	        var iso = item[0],
+	            value = item[1];
+	      	dataset[iso] = { numberOfThings: value, fillColor: colour(value) }
+	 	 });
+
+		// change scales
+		xScale = setxScale(dataBar, indx, countries)
+	    yScale = setyScale(dataBar, indx, countries)
+
+		// new map
+		document.getElementById("container").innerHTML = "";
+		createMap(dataset, name)
+
+		// new barchart
+		// next week: maybe transitions instead of entirely new chart?
+		document.getElementById("barchart").innerHTML = "";
+		createBarchart(container, tip, dataBar, countries, yScale, xScale, indx, title)
 
 };
 
 }
-
+}
 
 
 

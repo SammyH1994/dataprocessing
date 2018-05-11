@@ -1,5 +1,5 @@
-<!--Scatter.html creates the outline of the webpage that uses scatter.js to 
-create a scatterplot.
+<!-- Index.html creates the outline of the webpage that displays a map and a 
+	barchart based on either the Happy Planet Index or the Quality of Life Index
 
 Sammy Heutz, 10445765 
 -->
@@ -7,10 +7,15 @@ Sammy Heutz, 10445765
 <!DOCTYPE html>
 <html>
 	<header>
-		<h2 align = "center"> HPI</h2>
-		<h3 align = "center"> Sammy Heutz, 10445765 </h3>
+		<!-- Required meta tags -->
+   		<meta charset="utf-8">
+    	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<!--stylesheets-->		
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 	    <link href="index.css" rel="stylesheet"/>
 
+	    <!--scripts-->
 		<script src="https://d3js.org/d3.v3.js"></script>
 		<script src="https://d3js.org/d3-request.v1.min.js"></script>
 		<script src="https://d3js.org/d3-collection.v1.min.js"></script>
@@ -20,17 +25,34 @@ Sammy Heutz, 10445765
 		<script src="//d3js.org/topojson.v1.min.js"></script>
 		<script src="https://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
 		<script src="/datamaps.world.min.js"></script>
+		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+   		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+
+		<h1> How well is Europe doing?</h2>
+		<h3> Sammy Heutz, 10445765 </h3>
 
 	</header>
 	<body>
-		<p align="center">
-
-		<div id="container" style="position: relative; width: 1000px; height: 400px;"></div>
+		<p>
+			This page displays information on European countries from either the Happy Planet Index or the Quality of Life Index.
+			You can choose either of the datasets. 
+			<div>	
+			<p> Please select a dataset </p>
+				<select id="dropdown" name="index">
+					<option value="HPI">Happy Planet Index</option>
+					<option value="QOL">Quality of Life Index</option>	
+					</br></br>
+			  </select>
+		</div>
+	</p>
+	</br>
+		<div id="container" style="position: relative; width: 900px; height: 450px;"></div>
 		<script src = "countrycodes.js"></script>
 		<script src="index.js"></script>
-		<div id="barchart" style="position: relative; width: 1000px; height: 400px;"></div>
-		
-		</p>
+		<script src="map.js"></script>	
+		<script src ="barchart.js"></script>	
 
 	</body>
 </html>
