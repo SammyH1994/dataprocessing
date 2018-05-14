@@ -1,20 +1,20 @@
 {"quality_of_life":
 [
     {
-        "QOF_Rank": "1",
-        "Country": "Denmark",
-        "Quality_of_Life_Index": "197.75",
-        "Safety_Index": "77.98",
-        "Health_Care_Index": "77.07",
-        "Cost_of_Living": "93.3"
+        "QOF_Rank": "9",
+        "Country": "Norway",
+        "Quality_of_Life_Index": "176.27",
+        "Safety_Index": "56.67",
+        "Health_Care_Index": "74.66",
+        "Cost_of_Living": "113.7"
     },
     {
-        "QOF_Rank": "2",
-        "Country": "Finland",
-        "Quality_of_Life_Index": "195.3",
-        "Safety_Index": "76.3",
-        "Health_Care_Index": "75.4",
-        "Cost_of_Living": "81.7"
+        "QOF_Rank": "11",
+        "Country": "Spain",
+        "Quality_of_Life_Index": "174.92",
+        "Safety_Index": "63.26",
+        "Health_Care_Index": "77.49",
+        "Cost_of_Living": "61.75"
     },
     {
         "QOF_Rank": "3",
@@ -33,60 +33,12 @@
         "Cost_of_Living": "131.39"
     },
     {
-        "QOF_Rank": "5",
-        "Country": "Austria",
-        "Quality_of_Life_Index": "190.22",
-        "Safety_Index": "79.59",
-        "Health_Care_Index": "78.8",
-        "Cost_of_Living": "81.47"
-    },
-    {
-        "QOF_Rank": "6",
-        "Country": "Germany",
-        "Quality_of_Life_Index": "190.04",
-        "Safety_Index": "63.35",
-        "Health_Care_Index": "75.44",
-        "Cost_of_Living": "75.35"
-    },
-    {
-        "QOF_Rank": "7",
-        "Country": "Sweden",
-        "Quality_of_Life_Index": "176.81",
-        "Safety_Index": "50.74",
-        "Health_Care_Index": "70.42",
-        "Cost_of_Living": "83.7"
-    },
-    {
-        "QOF_Rank": "8",
-        "Country": "Estonia",
-        "Quality_of_Life_Index": "176.44",
-        "Safety_Index": "79.16",
-        "Health_Care_Index": "71.35",
-        "Cost_of_Living": "57.65"
-    },
-    {
-        "QOF_Rank": "9",
-        "Country": "Norway",
-        "Quality_of_Life_Index": "176.27",
-        "Safety_Index": "56.67",
-        "Health_Care_Index": "74.66",
-        "Cost_of_Living": "113.7"
-    },
-    {
-        "QOF_Rank": "10",
-        "Country": "Slovenia",
-        "Quality_of_Life_Index": "175.36",
-        "Safety_Index": "75.29",
-        "Health_Care_Index": "64.69",
-        "Cost_of_Living": "59.65"
-    },
-    {
-        "QOF_Rank": "11",
-        "Country": "Spain",
-        "Quality_of_Life_Index": "174.92",
-        "Safety_Index": "63.26",
-        "Health_Care_Index": "77.49",
-        "Cost_of_Living": "61.75"
+        "QOF_Rank": "1",
+        "Country": "Denmark",
+        "Quality_of_Life_Index": "197.75",
+        "Safety_Index": "77.98",
+        "Health_Care_Index": "77.07",
+        "Cost_of_Living": "93.3"
     },
     {
         "QOF_Rank": "12",
@@ -97,12 +49,20 @@
         "Cost_of_Living": "75.85"
     },
     {
-        "QOF_Rank": "13",
-        "Country": "Portugal",
-        "Quality_of_Life_Index": "166.71",
-        "Safety_Index": "65.46",
-        "Health_Care_Index": "69.5",
-        "Cost_of_Living": "55.86"
+        "QOF_Rank": "2",
+        "Country": "Finland",
+        "Quality_of_Life_Index": "195.3",
+        "Safety_Index": "76.3",
+        "Health_Care_Index": "75.4",
+        "Cost_of_Living": "81.7"
+    },
+    {
+        "QOF_Rank": "5",
+        "Country": "Austria",
+        "Quality_of_Life_Index": "190.22",
+        "Safety_Index": "79.59",
+        "Health_Care_Index": "78.8",
+        "Cost_of_Living": "81.47"
     },
     {
         "QOF_Rank": "14",
@@ -113,12 +73,12 @@
         "Cost_of_Living": "83.86"
     },
     {
-        "QOF_Rank": "15",
-        "Country": "Belgium",
-        "Quality_of_Life_Index": "164",
-        "Safety_Index": "57.83",
-        "Health_Care_Index": "80.43",
-        "Cost_of_Living": "83.35"
+        "QOF_Rank": "17",
+        "Country": "Croatia",
+        "Quality_of_Life_Index": "162.36",
+        "Safety_Index": "73",
+        "Health_Care_Index": "63.83",
+        "Cost_of_Living": "55.06"
     },
     {
         "QOF_Rank": "16",
@@ -129,92 +89,12 @@
         "Cost_of_Living": "85.45"
     },
     {
-        "QOF_Rank": "17",
-        "Country": "Croatia",
-        "Quality_of_Life_Index": "162.36",
-        "Safety_Index": "73",
-        "Health_Care_Index": "63.83",
-        "Cost_of_Living": "55.06"
-    },
-    {
-        "QOF_Rank": "18",
-        "Country": "Czech Republic",
-        "Quality_of_Life_Index": "162.01",
-        "Safety_Index": "71.19",
-        "Health_Care_Index": "75.36",
-        "Cost_of_Living": "50.09"
-    },
-    {
-        "QOF_Rank": "19",
-        "Country": "Slovakia",
-        "Quality_of_Life_Index": "155.37",
-        "Safety_Index": "69.85",
-        "Health_Care_Index": "64.42",
-        "Cost_of_Living": "50.41"
-    },
-    {
-        "QOF_Rank": "20",
-        "Country": "Lithuania",
-        "Quality_of_Life_Index": "148.98",
-        "Safety_Index": "62.41",
-        "Health_Care_Index": "66.81",
-        "Cost_of_Living": "53.24"
-    },
-    {
-        "QOF_Rank": "21",
-        "Country": "Poland",
-        "Quality_of_Life_Index": "146.58",
-        "Safety_Index": "63.77",
-        "Health_Care_Index": "62.08",
-        "Cost_of_Living": "45.2"
-    },
-    {
-        "QOF_Rank": "22",
-        "Country": "Italy",
-        "Quality_of_Life_Index": "146.13",
-        "Safety_Index": "55.47",
-        "Health_Care_Index": "68.01",
-        "Cost_of_Living": "79.06"
-    },
-    {
-        "QOF_Rank": "23",
-        "Country": "Romania",
-        "Quality_of_Life_Index": "133.05",
-        "Safety_Index": "70.96",
-        "Health_Care_Index": "54.56",
-        "Cost_of_Living": "39.71"
-    },
-    {
-        "QOF_Rank": "24",
-        "Country": "Greece",
-        "Quality_of_Life_Index": "137.43",
-        "Safety_Index": "60.93",
-        "Health_Care_Index": "54.18",
-        "Cost_of_Living": "63.15"
-    },
-    {
-        "QOF_Rank": "25",
-        "Country": "Hungary",
-        "Quality_of_Life_Index": "132.31",
-        "Safety_Index": "63.49",
-        "Health_Care_Index": "51.09",
-        "Cost_of_Living": "48.6"
-    },
-    {
-        "QOF_Rank": "26",
-        "Country": "Bulgaria",
-        "Quality_of_Life_Index": "129.69",
-        "Safety_Index": "60.3",
-        "Health_Care_Index": "52.11",
-        "Cost_of_Living": "41.21"
-    },
-    {
-        "QOF_Rank": "27",
-        "Country": "Bosnia and Herzegovina",
-        "Quality_of_Life_Index": "129.33",
-        "Safety_Index": "59.95",
-        "Health_Care_Index": "55.9",
-        "Cost_of_Living": "39.26"
+        "QOF_Rank": "6",
+        "Country": "Germany",
+        "Quality_of_Life_Index": "190.04",
+        "Safety_Index": "63.35",
+        "Health_Care_Index": "75.44",
+        "Cost_of_Living": "75.35"
     },
     {
         "QOF_Rank": "28",
@@ -225,12 +105,60 @@
         "Cost_of_Living": "39.59"
     },
     {
-        "QOF_Rank": "29",
-        "Country": "Russia",
-        "Quality_of_Life_Index": "103.32",
-        "Safety_Index": "54.8",
-        "Health_Care_Index": "56.77",
-        "Cost_of_Living": "43.89"
+        "QOF_Rank": "23",
+        "Country": "Romania",
+        "Quality_of_Life_Index": "133.05",
+        "Safety_Index": "70.96",
+        "Health_Care_Index": "54.56",
+        "Cost_of_Living": "39.71"
+    },
+    {
+        "QOF_Rank": "19",
+        "Country": "Slovakia",
+        "Quality_of_Life_Index": "155.37",
+        "Safety_Index": "69.85",
+        "Health_Care_Index": "64.42",
+        "Cost_of_Living": "50.41"
+    },
+    {
+        "QOF_Rank": "22",
+        "Country": "Italy",
+        "Quality_of_Life_Index": "146.13",
+        "Safety_Index": "55.47",
+        "Health_Care_Index": "68.01",
+        "Cost_of_Living": "79.06"
+    },
+    {
+        "QOF_Rank": "7",
+        "Country": "Sweden",
+        "Quality_of_Life_Index": "176.81",
+        "Safety_Index": "50.74",
+        "Health_Care_Index": "70.42",
+        "Cost_of_Living": "83.7"
+    },
+    {
+        "QOF_Rank": "21",
+        "Country": "Poland",
+        "Quality_of_Life_Index": "146.58",
+        "Safety_Index": "63.77",
+        "Health_Care_Index": "62.08",
+        "Cost_of_Living": "45.2"
+    },
+    {
+        "QOF_Rank": "18",
+        "Country": "Czech Republic",
+        "Quality_of_Life_Index": "162.01",
+        "Safety_Index": "71.19",
+        "Health_Care_Index": "75.36",
+        "Cost_of_Living": "50.09"
+    },
+    {
+        "QOF_Rank": "25",
+        "Country": "Hungary",
+        "Quality_of_Life_Index": "132.31",
+        "Safety_Index": "63.49",
+        "Health_Care_Index": "51.09",
+        "Cost_of_Living": "48.6"
     },
     {
         "QOF_Rank": "30",
@@ -239,6 +167,78 @@
         "Safety_Index": "50.61",
         "Health_Care_Index": "50.11",
         "Cost_of_Living": "25.98"
+    },
+    {
+        "QOF_Rank": "27",
+        "Country": "Bosnia and Herzegovina",
+        "Quality_of_Life_Index": "129.33",
+        "Safety_Index": "59.95",
+        "Health_Care_Index": "55.9",
+        "Cost_of_Living": "39.26"
+    },
+    {
+        "QOF_Rank": "13",
+        "Country": "Portugal",
+        "Quality_of_Life_Index": "166.71",
+        "Safety_Index": "65.46",
+        "Health_Care_Index": "69.5",
+        "Cost_of_Living": "55.86"
+    },
+    {
+        "QOF_Rank": "10",
+        "Country": "Slovenia",
+        "Quality_of_Life_Index": "175.36",
+        "Safety_Index": "75.29",
+        "Health_Care_Index": "64.69",
+        "Cost_of_Living": "59.65"
+    },
+    {
+        "QOF_Rank": "15",
+        "Country": "Belgium",
+        "Quality_of_Life_Index": "164",
+        "Safety_Index": "57.83",
+        "Health_Care_Index": "80.43",
+        "Cost_of_Living": "83.35"
+    },
+    {
+        "QOF_Rank": "24",
+        "Country": "Greece",
+        "Quality_of_Life_Index": "137.43",
+        "Safety_Index": "60.93",
+        "Health_Care_Index": "54.18",
+        "Cost_of_Living": "63.15"
+    },
+    {
+        "QOF_Rank": "20",
+        "Country": "Lithuania",
+        "Quality_of_Life_Index": "148.98",
+        "Safety_Index": "62.41",
+        "Health_Care_Index": "66.81",
+        "Cost_of_Living": "53.24"
+    },
+    {
+        "QOF_Rank": "26",
+        "Country": "Bulgaria",
+        "Quality_of_Life_Index": "129.69",
+        "Safety_Index": "60.3",
+        "Health_Care_Index": "52.11",
+        "Cost_of_Living": "41.21"
+    },
+    {
+        "QOF_Rank": "29",
+        "Country": "Russia",
+        "Quality_of_Life_Index": "103.32",
+        "Safety_Index": "54.8",
+        "Health_Care_Index": "56.77",
+        "Cost_of_Living": "43.89"
+    },
+    {
+        "QOF_Rank": "8",
+        "Country": "Estonia",
+        "Quality_of_Life_Index": "176.44",
+        "Safety_Index": "79.16",
+        "Health_Care_Index": "71.35",
+        "Cost_of_Living": "57.65"
     }
 ]
 }

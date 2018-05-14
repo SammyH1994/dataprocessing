@@ -17,6 +17,24 @@
 // 	}
 
 // 	console.log(barData(happy, "Norway"))
+
+var countryData = {
+	"country" : [
+	    {
+        "HPI_Rank": x,
+        "QOL_Rank": x
+    }]
+
+};
+
+
+
+
+
+var viewData = { 
+    employees : [] 
+};
+
 // function onGeneratedRow(columnsResult)
 // {
 //     var jsonData = {};

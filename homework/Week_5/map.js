@@ -1,16 +1,26 @@
-function createColour(data, values, range){
+function createColour(data, values){
     return d3.scale.linear()
         .domain([
             d3.min(data, function(d) {return d[values];}),
             d3.max(data, function(d) {return d[values]; })
         ])
-        .range(range)
+        .range(["green", "red"])
 }
 
+
 function createMap(dataset, string){
-    new Datamap({
+   var map = new Datamap({
             element: document.getElementById('container'),
-            //projection: 'mercator', // big world map
+            done: function(datamap) {
+            datamap.svg.selectAll('.datamaps-subunit').on('click', function(geography, data) {
+
+                currentCountry = geography.properties.name;
+                if (!countries.includes(currentCountry)){return}
+                data = createBardata(currentCountry)
+                updateCountry(data, currentCountry)
+
+            });
+        },
             setProjection: function (element) {
                 var projection = d3.geo.mercator()
                         .center([30.864716, 55.349014]) // always in [East Latitude, North Longitude]
@@ -18,11 +28,10 @@ function createMap(dataset, string){
                     var path = d3.geo.path().projection(projection);
                     return { path: path, projection: projection };
                 },
-            // countries don't listed in dataset will be painted with this color
+            // countries not listed in dataset will be painted with this color
             fills: { defaultFill: '#F5F5F5' },
             data: dataset,
             geographyConfig: {
-            	//dataUrl: '/europe.json'
                 borderColor: '#DEDEDE',
                 highlightBorderWidth: 2,
                 // don't change color on mouse hover
@@ -36,10 +45,14 @@ function createMap(dataset, string){
                     // don't show tooltip if country don't present in dataset
                     if (!data) { return ; }
                     // tooltip content
+
                     return ['<div class="hoverinfo">',
                         '<strong>', geo.properties.name, '</strong>',
                         '<br>' +string+ ' <strong>', Math.round(data.numberOfThings), '</strong>',
                         '</div>'].join('');
                 }
               }
-          });}
+          });
+map.legend();
+
+}

@@ -1,7 +1,7 @@
 import json
 import csv
 
-name = "happy_planet"
+name = "quality_of_life"
 file = name + ".csv"
 json_file = name + ".json"
 
