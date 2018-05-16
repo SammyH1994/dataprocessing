@@ -1,24 +1,10 @@
-var w = 800,
-    h = 450,
+var w = 600,
+    h = 350,
     margin = { top: 50, left: 50, bottom: 170, right: 50 },
     barPadding = 3;
 
 var colour = d3.scale.linear()
     .range(["green", "red"])
-
-function setTip(indx, rank){
-
-				// creating the tooltip			
-				tip = d3.tip()
-				  .attr('class', 'd3-tip')
-				  .offset([-10, 0])
-				  .html(function(d) {
-					return "<strong>Country:</strong> <span style='color:red'>" + d["Country"] + 
-					"</span></br><strong>"+indx+"</strong> <span style='color:red'>" + d[rank] + "</span>";
-				  })
-
-				  	return tip
-}
 
 function createBarchart(data, rank){
 
@@ -26,7 +12,7 @@ function createBarchart(data, rank){
       	.range([margin.top, (h - margin.bottom)])
       	.domain([d3.max(data, function(d) { return d[rank]; }), 0]);
 
-      		xScale = d3.scale.ordinal()
+      	xScale = d3.scale.ordinal()
   			.domain(countries)
     		.rangeRoundBands([margin.left, w-margin.right], 0.1);
 
@@ -34,7 +20,7 @@ function createBarchart(data, rank){
     	.append("text")
     	.attr("id", "title")
     	.attr("x", w / 2 )
-    	.attr("y", margin.top)
+    	.attr("y", margin.top/3)
     	.style("text-anchor", "middle")
 
 	svg
@@ -45,11 +31,31 @@ function createBarchart(data, rank){
 	svg
 		.append("g")
 		.attr("class","y axis")
-		.attr("transform", "translate(" + margin.left + ", 0)");
+		.attr("transform", "translate(" + margin.left + ", 0)")
+		  .style("font", "10px sans-serif")
+
+		.append("text")
+		.attr("class", "label")
+		.attr("transform", "rotate(-90)")
+		.attr("x", - margin.top)
+		.attr("y", 5)
+		.attr("dy", ".71em")
+		.style("text-anchor", "end")
+		.text("Rank");
 };
 
 function updateRank(data, rank, title)
+
 {
+	if (rank === "value"){
+		var xVal = "category"
+		xScale
+		.domain(data.map(function(d) { return d.category; }))
+
+		 var tipString =  function(d) {
+		return "<strong>" + d.category + ": </strong> <span style='color:red'>" + d.value + 
+		"</span>";}
+
 
 	// setting the axes	
 	var xAxis = d3.svg.axis()
@@ -60,32 +66,43 @@ function updateRank(data, rank, title)
 			.scale(yScale)
 			.orient("left")
 
+
 	colour
 	    .domain([
-            d3.min(data, function(d) {return d[rank];}),
+            d3.min(data, function(d) {return d[rank]}),
             d3.max(data, function(d) {return d[rank]; })
         ])
+    
 
 		tip = d3.tip()
 		.attr('class', 'd3-tip')
 		.offset([-10, 0])
-		.html(function(d) {
-		return "<strong>Country:</strong> <span style='color:red'>" + d["Country"] + 
-		"</span></br><strong>"+name+"</strong> <span style='color:red'>" + d[rank] + "</span>";
-				  })
+		.html(tipString)
 	svg.call(tip);
 
 	var bars = svg.selectAll("rect")
 	   .data(data);
 
+	   bars
+	   .exit()
+      .attr("y", yScale(0))
+      .attr("x", w)
+      .attr("height", h - yScale(0))
+      .style('fill-opacity', 1e-6)
+      .remove();
+
 	bars
 	   .enter()
 	   .append("rect");
 
+
 	bars
-	 .transition()
-	.duration(300)
-		.attr("x", function(d,i) { return (w -(w-  xScale(countries[i] ))); })
+    .transition()
+      .delay(function(d, i) {
+        return 30 * i;
+      })
+      .duration(1400)
+		.attr("x", function(d,i) { return (w -(w-  xScale(d[xVal] ))); })
 	   .attr("y", function(d) {
 			return (h - (h - yScale(d[rank])));
 	   })
@@ -97,19 +114,14 @@ function updateRank(data, rank, title)
           return colour(d[rank]);
         })
 
+
+
 	bars
 		.on('mouseover', tip.show)
 		.on('mouseout', tip.hide);	
 
-		bars
-		.exit()
-		.transition()
-    	.duration(300)
-		.remove();
 
 	svg.select(".x.axis")
-		.transition()
-		.duration(300)
 		.call(xAxis)
 		.selectAll("text")	
             .style("text-anchor", "end")
@@ -120,25 +132,25 @@ function updateRank(data, rank, title)
                 });
 
     svg.select(".y.axis")
-    	.transition()
-    	.duration(300)
+
     	.call(yAxis)
-
     svg.select("#title")
-    	.transition()
-    	.duration(300)
     	.text(title);
-}
 
 
+	}
+	else {
+		var xVal = "Country"
+		xScale
+		.domain(countries)
 
-function updateCountry(data, title)
-{
+		var tipString = function(d) {
+		return "<strong>Country:</strong> <span style='color:red'>" + d["Country"] + 
+	 	"</span></br><strong>"+name+"</strong> <span style='color:red'>" + d[rank] + "</span>";}
+	
 
-	xScale
-	.domain(data.map(function(d) { return d.category; }))
-
-		// setting the axes	
+	
+	// setting the axes	
 	var xAxis = d3.svg.axis()
 		.scale(xScale)
 		.orient("bottom")
@@ -149,39 +161,56 @@ function updateCountry(data, title)
 
 	colour
 	    .domain([
-            d3.min(data, function(d) {return d.value;}),
-            d3.max(data, function(d) {return d.value; })
+            d3.min(data, function(d) {return d[rank]}),
+            d3.max(data, function(d) {return d[rank]; })
         ])
+    
+
 		tip = d3.tip()
 		.attr('class', 'd3-tip')
 		.offset([-10, 0])
-		.html(function(d) {
-		return "<strong>" + d.category + ": </strong> <span style='color:red'>" + d.value + 
-		"</span>";
-				  })
+		.html(tipString)
 	svg.call(tip);
 
 	var bars = svg.selectAll("rect")
 	   .data(data);
 
+ 	bars.exit()
+      .transition()
+      .delay(function(d, i) {
+        return 30 * i;
+      })
+      .duration(1400)
+      .attr("y", yScale(0))
+      .attr("x", w)
+      .attr("height", h - yScale(0))
+      .style('fill-opacity', 1e-6)
+      .remove();
+
 	bars
 	   .enter()
 	   .append("rect");
 
+
 	bars
-		.transition()
-		.duration(300)
-		.attr("x", function(d,i) { return (w -(w- xScale(d.category ))); })
+	      .transition()
+      .delay(function(d, i) {
+        return 30 * i;
+      })
+      .duration(1400)
+		.attr("x", function(d,i) { return (w -(w-  xScale(d[xVal] ))); })
 	   .attr("y", function(d) {
-			return (h - (h - yScale(d.value)));
+			return (h - (h - yScale(d[rank])));
 	   })
 	   .attr("width", xScale.rangeBand())
 	   .attr("height", function(d) {
-			return h - yScale(d.value) - margin.bottom;
+			return h - yScale(d[rank]) - margin.bottom;
 	   })
 	   .attr('fill', function(d) { 
-          return colour(d.value);
+          return colour(d[rank]);
         })
+
+
 
 	bars
 		.on('mouseover', tip.show)
@@ -189,10 +218,15 @@ function updateCountry(data, title)
 
 		bars
 		.exit()
-
+      .transition()
+      .delay(function(d, i) {
+        return 30 * i;
+      })
+      .duration(1400)
 		.remove();
 
 	svg.select(".x.axis")
+
 		.call(xAxis)
 		.selectAll("text")	
             .style("text-anchor", "end")
@@ -203,16 +237,12 @@ function updateCountry(data, title)
                 });
 
     svg.select(".y.axis")
-    	.transition()
-    	.duration(300)
-    	.call(yAxis)
 
+    	.call(yAxis)
     svg.select("#title")
-    	.transition()
-    	.duration(300)
     	.text(title);
 }
-
+}
 
 
 function createBardata(country){

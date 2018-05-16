@@ -13,6 +13,7 @@ Sammy Heutz, 10445765
 
 		<!--stylesheets-->		
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+		<link rel = "stylesheet" href="https://bootswatch.com/4/cosmo/bootstrap.min.css">
 	    <link href="index.css" rel="stylesheet"/>
 
 	    <!--scripts-->
@@ -30,30 +31,62 @@ Sammy Heutz, 10445765
     	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
 
-		<h1> How well is Europe doing?</h2>
+		<h1> How well is Europe doing?</h1>
+	</br>
 		<h3> Sammy Heutz, 10445765 </h3>
+	</br>
+		<h4>This page displays information on European countries from either the Happy Planet Index or the Quality of Life Index.
+		 </h4>
 
 	</header>
 	<body>
-		<p>
-			This page displays information on European countries from either the Happy Planet Index or the Quality of Life Index.
-			You can choose either of the datasets. 
-			<div>	
-			<p> Please select a dataset </p>
-				<select id="dropdown" name="index">
-					<option value="HPI">Happy Planet Index</option>
-					<option value="QOL">Quality of Life Index</option>	
-					</br></br>
-			  </select>
-		</div>
-	</p>
+		<p> 	You can choose either of the datasets using the dropdown button.</br>
+			If you click on one of the countries of the map, the barchart will display both ranks for that country.
+		</br>Below the visualizations you can find a short description of the data.
+		</p>
+
+
+			<div class="dropdown">
+ 			 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Dataset
+  	</button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <a class="dropdown-item"  id = "HPI">Happy Planet Index</a>
+    <a class="dropdown-item"  id = "QOL">Quality of Life Index</a>
+
+  </div>
+</div>
+
+ 
 	</br>
-		<div id="container" style="position: relative; width: 900px; height: 450px;"></div>
+
+
+		<div id = "outercontainer">
+		<div id="container""></div>
+		</div>
+
+		<p id = "description">
+			bla bla bullshit bla
+			for instance, estonia hpi 30, qol 8!!
+			NL 3,3
+			spain 2, 11
+
+			so what really determines how well a qountry is doing? happines or quality??? 
+		</p>
 		
+		Data Sources: <a href="https://happyplanetindex.org/resources/">HPI</a>, <a href="https://www.numbeo.com/quality-of-life/rankings_by_country.jsp?title=2018&region=150">QOL</a> </br></br>
+
+
+
+
+
 		<script src = "countrycodes.js"></script>
 		<script src="index.js"></script>
 		<script src="map.js"></script>	
 		<script src ="barchart.js"></script>	
+
+
+
 
 	</body>
 </html>
