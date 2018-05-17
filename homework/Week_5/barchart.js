@@ -77,7 +77,7 @@ function updateRank(data, rank, title){
     
 		// create tip
 		var tip = d3.tip()
-			.attr('class', 'd3-tip')
+			.attr("class", "d3-tip")
 			.offset([-10, 0])
 			.html(function(d) {return "<strong>" + d.category + 
 				": </strong> <span style='color:red'>" + d.value + "</span>"; });
@@ -94,7 +94,7 @@ function updateRank(data, rank, title){
       		.attr("y", yScale(0))
 	       	.attr("x", w)
 	    	.attr("height", h - yScale(0))
-	      	.style('fill-opacity', 1e-6)
+	      	.style("fill-opacity", 1e-6)
 	      	.remove();
 
 	    // enter bars
@@ -117,14 +117,14 @@ function updateRank(data, rank, title){
 			.attr("height", function(d) {
 				return h - yScale(d[rank]) - margin.bottom;
 			})
-			.attr('fill', function(d) { 
+			.attr("fill", function(d) { 
 			  	return colour(d[rank]);
 			});
 
 		// show tip
 		bars
-			.on('mouseover', tip.show)
-			.on('mouseout', tip.hide);	
+			.on("mouseover", tip.show)
+			.on("mouseout", tip.hide);	
 	}
 
 	// bar chart with QOL or HPI for europe
@@ -143,11 +143,11 @@ function updateRank(data, rank, title){
 	
 		// create tip
 		var tip = d3.tip()
-			.attr('class', 'd3-tip')
+			.attr("class", "d3-tip")
 			.offset([-10, 0])
 			.html(function(d) {
 				return "<strong>Country:</strong> <span style='color:red'>" + 
-				d["Country"] + "</span></br><strong>" + name + 
+				d["Country"] + "</span><br><strong>" + name + 
 				"</strong> <span style='color:red'>" + d[rank] + "</span>"; });
 	
 		svg.call(tip);
@@ -166,7 +166,7 @@ function updateRank(data, rank, title){
 	      	.attr("y", yScale(0))
 	      	.attr("x", w)
 	      	.attr("height", h - yScale(0))
-	      	.style('fill-opacity', 1e-6)
+	      	.style("fill-opacity", 1e-6)
 	      	.remove();
 
 	    // enter bars
@@ -195,8 +195,8 @@ function updateRank(data, rank, title){
 
 		// show tip
 		bars
-			.on('mouseover', tip.show)
-			.on('mouseout', tip.hide);	
+			.on("mouseover", tip.show)
+			.on("mouseout", tip.hide);	
 
 		// transition and remove bars
 		bars

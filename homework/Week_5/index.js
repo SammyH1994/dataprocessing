@@ -23,10 +23,10 @@ var w = 600,
     yScale,
     svg;
 
-window.onload = function() {	
+window.onload = function() {
 	
-	let quality_of_life = "/quality_of_life.json";
-	let happy_planet = "/happy_planet.json";
+	var quality_of_life = "/quality_of_life.json";
+	var happy_planet = "/happy_planet.json";
 	
 	// retrieve data
 	d3.queue()
@@ -46,7 +46,7 @@ window.onload = function() {
 
 		// change HPI_rank to 1 - 30 for comparison with QOF_Rank
 		// create countries array and dict with ranks per country
-		for (let i = 0; i < dataLength; i ++){
+		for (var i = 0; i < dataLength; i ++){
 			happy[i].HPI_Rank = i + 1;
 			countries[i] = happy[i].Country;
 			perCountry[countries[i]] = [happy[i].HPI_Rank, parseInt(quality[i].QOF_Rank)];
@@ -68,7 +68,6 @@ window.onload = function() {
 		happy.forEach(function(d) {
 			d["HPI_Rank"] = parseInt(d["HPI_Rank"]);
 			});
-
 
 		// initial map and bar settings (HPI)
 		name = "Happy Planet Rank: ";
@@ -101,7 +100,7 @@ window.onload = function() {
 		// change data based on dropdown menu
 		function changeRank() {
 
-			let index = this.getAttribute('id');
+			var index = this.getAttribute("id");
 			
 			// values for Happy Planet Index
 			if (index === "HPI"){
@@ -124,7 +123,7 @@ window.onload = function() {
 				};
 
 			// data format to create map colours based on values
-			series.forEach(function(item){ 
+			series.forEach(function(item){
 		        var iso = item[0],
 		            value = item[1];
 		      	dataset[iso] = { numberOfThings: value, fillColor: colour(value) };

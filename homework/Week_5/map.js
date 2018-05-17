@@ -30,9 +30,9 @@ function createMap(dataset, string, titel){
 
     var map = new Datamap({
 
-            element: document.getElementById('container'),
+            element: document.getElementById("container"),
             done: function(datamap) {
-            datamap.svg.selectAll('.datamaps-subunit').on('click', 
+            datamap.svg.selectAll(".datamaps-subunit").on("click", 
                 function(geography, data) {
 
                 currentCountry = geography.properties.name;
@@ -51,30 +51,30 @@ function createMap(dataset, string, titel){
                 },
 
             // countries not listed in dataset will be painted with this color
-            fills: { defaultFill: '#F5F5F5' },
+            fills: { defaultFill: "#F5F5F5" },
             data: dataset,
             geographyConfig: {
-                borderColor: '#DEDEDE',
+                borderColor: "#DEDEDE",
                 highlightBorderWidth: 2,
 
                 // don't change color on mouse hover
                 highlightFillColor: function(geo) {
-                    return geo['fillColor'] || '#F5F5F5';
+                    return geo["fillColor"] || "#F5F5F5";
                 },
 
                 // only change border
-                highlightBorderColor: 'orange',
+                highlightBorderColor: "orange",
                 // show desired information in tooltip
                 popupTemplate: function(geo, data) {
-                    // don't show tooltip if country don't present in dataset
+                    // don"t show tooltip if country don"t present in dataset
                     if (!data) { return ; }
                     
                     // tooltip content
-                    return ['<div class="hoverinfo">',
-                        '<strong>', geo.properties.name, '</strong>',
-                        '<br>' +string+ ' <strong>', Math.round(data.numberOfThings), 
-                        '</strong>',
-                        '</div>'].join('');
+                    return ["<div class='hoverinfo'>",
+                        "<strong>", geo.properties.name, "</strong>",
+                        "<br>" + string + " <strong>", Math.round(data.numberOfThings), 
+                        "</strong>",
+                        "</div>"].join("");
                 }
             }
         });
@@ -95,10 +95,10 @@ function createLegend(data){
         .attr("class", "legend");
 
     // Create the svg:defs element and the main gradient definition.
-    var svgDefs = key.append('defs');
+    var svgDefs = key.append("defs");
 
-    var mainGradient = svgDefs.append('linearGradient')
-        .attr('id', 'mainGradient')
+    var mainGradient = svgDefs.append("linearGradient")
+        .attr("id", "mainGradient")
         .attr("x1", "100%")
         .attr("y1", "0%")
         .attr("x2", "100%")
@@ -107,19 +107,19 @@ function createLegend(data){
 
     // Create the stops of the main gradient. Each stop will be assigned
     // a class to style the stop using CSS.
-    mainGradient.append('stop')
-        .attr('class', 'stop-top')
-        .attr('offset', "0%");
+    mainGradient.append("stop")
+        .attr("class", "stop-top")
+        .attr("offset", "0%");
 
-    mainGradient.append('stop')
-        .attr('class', 'stop-bottom')
-        .attr('offset', "100%");
+    mainGradient.append("stop")
+        .attr("class", "stop-bottom")
+        .attr("offset", "100%");
 
     // Use the gradient to set the shape fill, via CSS.
-    key.append('rect')
-        .classed('filled', true)
-        .attr('width', (wLegend / 2))
-        .attr('height', hLegend);
+    key.append("rect")
+        .classed("filled", true)
+        .attr("width", (wLegend / 2))
+        .attr("height", hLegend);
 
     // create y scale
     var y = d3.scale.linear()
@@ -140,4 +140,5 @@ function createLegend(data){
         .style("font", "10px sans-serif")
         .call(yAxis);
 };
+
 
