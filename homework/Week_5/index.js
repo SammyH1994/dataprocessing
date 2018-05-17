@@ -25,8 +25,8 @@ var w = 600,
 
 window.onload = function() {
 	
-	var quality_of_life = "/quality_of_life.json";
-	var happy_planet = "/happy_planet.json";
+	var quality_of_life = "quality_of_life.json";
+	var happy_planet = "happy_planet.json";
 	
 	// retrieve data
 	d3.queue()
