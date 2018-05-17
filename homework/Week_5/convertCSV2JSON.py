@@ -1,3 +1,8 @@
+# Sammy Heutz
+# 10445765
+# 
+# convertCSV2JSON.py converts csv files to json files.
+
 import json
 import csv
 
@@ -23,8 +28,7 @@ def convert_write_json(data, json_file):
 	with open(json_file, "w", encoding='ascii') as f:
 		f.write("{")
 		f.write("\"{}\":\n".format(name))
-		#print(json.dumps(data, sort_keys=False, indent=4, separators=(',', ': ')))
-		f.write(json.dumps(data, sort_keys=False, indent=4, separators=(',', ': '))) #for pretty
+		f.write(json.dumps(data, sort_keys=False, indent=4, separators=(',', ': ')))
 		f.write("\n}")
 
 read_CSV(file,json_file)

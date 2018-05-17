@@ -1,3 +1,10 @@
+/*
+ *  Sammy Heutz
+ *  10445765
+ * 
+ *  countrycodes.js converts Europe's country strings into ISO 3 strings, in order to colour the map according to given values.
+**/
+
 var isoCountries = {
     "Norway" : "NOR",
     "Spain" : "ESP",
@@ -32,5 +39,5 @@ var isoCountries = {
 };
 
 function getCountryCode (countryName) {
-    return isoCountries[countryName]
+    return isoCountries[countryName];
 }

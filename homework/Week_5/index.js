@@ -1,154 +1,150 @@
 /*
-	Sammy Heutz, 10445765
-*/
-
+ *  Sammy Heutz
+ *  10445765
+ * 
+ * Index.js creates a webpage that displays two visualizations: a map that
+ * shows either the HPI rank or the QOL rank for 30 European countries,
+ * and a bar chart that shows either the HPI or QOL rank for these countries,
+ * or when a country on the map is clicked shows the HPI and QOL rank for this
+ * country.
+**/
 
 // global variables
-var svg;
-var tip;
-var xScale;
-var yScale;
-var countries = []
-var happy;
-var quality;
-var perCountry = {}
+var countries = [];
+var perCountry = {};
 var name;
+
+// bar chart variables
+var w = 600,
+    h = 350,
+    margin = { top: 50, left: 50, bottom: 170, right: 50 },
+    barPadding = 3,
+    xScale,
+    yScale,
+    svg;
 
 window.onload = function() {	
 	
-	let quality_of_life = "/quality_of_life.json"
-	let happy_planet = "/happy_planet.json"
+	let quality_of_life = "/quality_of_life.json";
+	let happy_planet = "/happy_planet.json";
 	
 	// retrieve data
 	d3.queue()
-	.defer(d3.json, happy_planet)
-	.defer(d3.json, quality_of_life)
-	.await(callback);
+		.defer(d3.json, happy_planet)
+		.defer(d3.json, quality_of_life)
+		.await(callback);
 	
+	// create visualizations
 	function callback(error, happy_planet, quality_of_life) {
 	if (error) throw error;
 	
-		dataLength = happy_planet.happy_planet.length
-
-		// change HPI_rank to 1-30 for comparison with QOF-Rank
-		for (let i = 0; i <dataLength; i++){
-			happy_planet.happy_planet[i].HPI_Rank = i+1
-		}
+		dataLength = happy_planet.happy_planet.length;
 
 		// variables for easier data usage
-		happy = happy_planet.happy_planet
-		quality = quality_of_life.quality_of_life
+		var happy = happy_planet.happy_planet;
+		var quality = quality_of_life.quality_of_life;
 
-		// countries array and dict with ranks per country
-		for (let i = 0; i < dataLength; i++){
-			countries[i] = happy[i].Country
-			perCountry[countries[i]] = [happy[i].HPI_Rank, parseInt(quality[i].QOF_Rank)]
-		};
+		// change HPI_rank to 1 - 30 for comparison with QOF_Rank
+		// create countries array and dict with ranks per country
+		for (let i = 0; i < dataLength; i ++){
+			happy[i].HPI_Rank = i + 1;
+			countries[i] = happy[i].Country;
+			perCountry[countries[i]] = [happy[i].HPI_Rank, parseInt(quality[i].QOF_Rank)];
+		}
 
 		var seriesHPI = [];
 		var seriesQOL = [];
 
-		// data arrays to colour map based on value
-		for (var i = 0; i < dataLength; i++){
-			//HPI
-			seriesHPI.push([getCountryCode(countries[i]),happy[i].HPI_Rank])
-			
-			//QOL
-			seriesQOL.push([getCountryCode(countries[i]), quality[i].QOF_Rank])
+		// create data arrays to colour map based on value
+		for (var i = 0; i < dataLength; i ++){
+			seriesHPI.push([getCountryCode(countries[i]),happy[i].HPI_Rank]);
+			seriesQOL.push([getCountryCode(countries[i]), quality[i].QOF_Rank]);
 			};
 
 		// correct format for map colouring
 		quality.forEach(function(d) {
-			d["QOF_Rank"] = parseInt(d["QOF_Rank"])
+			d["QOF_Rank"] = parseInt(d["QOF_Rank"]);
 			});
 		happy.forEach(function(d) {
-			d["HPI_Rank"] = parseInt(d["HPI_Rank"])
+			d["HPI_Rank"] = parseInt(d["HPI_Rank"]);
 			});
 
 
 		// initial map and bar settings (HPI)
-		name = "Happy Planet Rank: "
-		var rank = "HPI_Rank"
-		var title = "Happy Planet Rank Europe"
-		var colour = createColour(happy, rank)
-		series = seriesHPI
+		name = "Happy Planet Rank: ";
+		var rank = "HPI_Rank";
+		var title = "Happy Planet Rank Europe";
+		var colour = createColour(happy, rank);
+		var series = seriesHPI;
+		var dataset = {};
 
-		var dataset = {}
-
+		// data format to create map colours based on values
 		series.forEach(function(item){ 
-	       var iso = item[0],
-	           value = item[1];
-	      dataset[iso] = { numberOfThings: value, fillColor: colour(value) }
-	  });
+	    	var iso = item[0],
+	       	value = item[1];
+	      	dataset[iso] = { numberOfThings: value, fillColor: colour(value) };
+	  	});
 
-		// create initial map
-		var map = createMap(dataset, name, title)
-		legend = createLegend(happy)
-
-
-		// bar chart elements
+		// create bar chart elements
 		var container = d3.select("#outercontainer").append("div")
-	    	.attr("id", "barchart")
+	   		.attr("id", "barchart");
 		svg = container.append("svg")
-		      .attr("width", w)
-		      .attr("height", h)
+		    .attr("width", w)
+		    .attr("height", h);
 
-		// create initial barchart
-		createBarchart(happy, rank)
-		updateRank(happy, rank, title)
+		// create initial barchart and map
+		var map = createMap(dataset, name, title);
+		legend = createLegend(happy);
+		createBarchart(happy, rank);
+		updateRank(happy, rank, title);
 		
-
-		// change data based on dropdown
+		// change data based on dropdown menu
 		function changeRank() {
-
 
 			let index = this.getAttribute('id');
 			
-			// values for Happy Planet
+			// values for Happy Planet Index
 			if (index === "HPI"){
-				rank = "HPI_Rank"
+				rank = "HPI_Rank";
 				colour = createColour(happy, rank);
-				series = seriesHPI
-				name = "Happy Planet Rank: "
-				var dataBar = happy
-				title = "Happy Planet Rank Europe"
+				series = seriesHPI;
+				name = "Happy Planet Rank: ";
+				var dataBar = happy;
+				title = "Happy Planet Rank Europe";
 				}
 
-			// values for Quality of Life
+			// values for Quality of Life Index
 			else {
-				rank = "QOF_Rank"
+				rank = "QOF_Rank";
 				colour = createColour(quality, rank);
-				series = seriesQOL
-				name = "Quality of Life Rank: "
-				var dataBar = quality
-				title = "Quality of Life Rank Europe"
+				series = seriesQOL;
+				name = "Quality of Life Rank: ";
+				var dataBar = quality;
+				title = "Quality of Life Rank Europe";
 				};
 
-			// data for colouring map
+			// data format to create map colours based on values
 			series.forEach(function(item){ 
 		        var iso = item[0],
 		            value = item[1];
-		      	dataset[iso] = { numberOfThings: value, fillColor: colour(value) }
+		      	dataset[iso] = { numberOfThings: value, fillColor: colour(value) };
 		 	 });
 
-			// new map
-
+			// clear map
 			document.getElementById("container").innerHTML = "";
-			x = document.getElementById("maptitle");
-			x.parentNode.removeChild(x)
+			mapTitel = document.getElementById("maptitle");
+			mapTitel.parentNode.removeChild(mapTitel);
 
-			map = createMap(dataset, name, title)
-
-			// new barchart
-			updateRank(dataBar, rank, title)
-
+			// update map and barchart
+			map = createMap(dataset, name, title);
+			updateRank(dataBar, rank, title);
 };
 
-	document.getElementById("HPI").onclick=changeRank	
-	document.getElementById("QOL").onclick=changeRank
+	document.getElementById("HPI").onclick=changeRank;
+	document.getElementById("QOL").onclick=changeRank;
 
-}
-}
+};
+};
 
 
 

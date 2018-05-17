@@ -1,8 +1,11 @@
-<!-- Index.html creates the outline of the webpage that displays a map and a 
-	barchart based on either the Happy Planet Index or the Quality of Life Index
+<!-- 
+Sammy Heutz
+10445765 
 
-Sammy Heutz, 10445765 
+Index.html creates the outline of the webpage that displays a map of europe and a 
+barchart based on either the Happy Planet Index or the Quality of Life Index.
 -->
+
 
 <!DOCTYPE html>
 <html>
@@ -12,8 +15,10 @@ Sammy Heutz, 10445765
     	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 		<!--stylesheets-->		
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-		<link rel = "stylesheet" href="https://bootswatch.com/4/cosmo/bootstrap.min.css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+			 integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" 
+			 crossorigin="anonymous">
+		<link rel = "stylesheet" href="https://bootswatch.com/4/simplex/bootstrap.min.css">
 	    <link href="index.css" rel="stylesheet"/>
 
 	    <!--scripts-->
@@ -24,69 +29,163 @@ Sammy Heutz, 10445765
 		<script src="https://d3js.org/d3-dsv.v1.min.js"></script>	
 		<script src="https://d3js.org/d3-queue.v3.min.js"></script>
 		<script src="//d3js.org/topojson.v1.min.js"></script>
-		<script src="https://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+		<script src="https://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js">
+		</script>
 		<script src="/datamaps.world.min.js"></script>
-		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-   		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-
-
-		<h1> How well is Europe doing?</h1>
-	</br>
-		<h3> Sammy Heutz, 10445765 </h3>
-	</br>
-		<h4>This page displays information on European countries from either the Happy Planet Index or the Quality of Life Index.
-		 </h4>
-
-	</header>
-	<body>
-		<p> 	You can choose either of the datasets using the dropdown button.</br>
-			If you click on one of the countries of the map, the barchart will display both ranks for that country.
-		</br>Below the visualizations you can find a short description of the data.
-		</p>
-
-
-			<div class="dropdown">
- 			 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Dataset
-  	</button>
-  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-    <a class="dropdown-item"  id = "HPI">Happy Planet Index</a>
-    <a class="dropdown-item"  id = "QOL">Quality of Life Index</a>
-
-  </div>
-</div>
-
- 
-	</br>
-
-
-		<div id = "outercontainer">
-		<div id="container""></div>
-		</div>
-
-		<p id = "description">
-			bla bla bullshit bla
-			for instance, estonia hpi 30, qol 8!!
-			NL 3,3
-			spain 2, 11
-
-			so what really determines how well a qountry is doing? happines or quality??? 
-		</p>
-		
-		Data Sources: <a href="https://happyplanetindex.org/resources/">HPI</a>, <a href="https://www.numbeo.com/quality-of-life/rankings_by_country.jsp?title=2018&region=150">QOL</a> </br></br>
-
-
-
-
-
-		<script src = "countrycodes.js"></script>
+		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" 
+			integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" 
+			crossorigin="anonymous"></script>
+   		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" 
+   			integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" 
+   			crossorigin="anonymous"></script>
+    	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" 
+    		integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" 
+    		crossorigin="anonymous"></script>
+    	<script src = "countrycodes.js"></script>
 		<script src="index.js"></script>
 		<script src="map.js"></script>	
-		<script src ="barchart.js"></script>	
+		<script src ="barchart.js"></script>
+
+    	<!-- hero unit with title of page and subtext -->
+		<div class="jumbotron">
+			<h1> What determines a country's well-being?</h1>
+ 			<hr class="my-4"> 
+			<h4>This page displays information on European countries from either 
+				the Happy Planet Index or the Quality of Life Index.</h4>
+		</div>
+	</header>
+
+	<body>
+
+		<!-- short explanation of visualizations -->
+		<p>You can choose either of the datasets using the dropdown button.</p>
+		<p>If you click on one of the countries of the map, the barchart will 
+			display both ranks for that country.</p>
+		<p >Below the visualizations you can find a short description of the 
+			data.</p>
 
 
+		<!-- drop down button to switch data -->
+		<div class="dropdown">
+ 			 <button class="btn btn-primary dropdown-toggle" type="button" 
+ 			 id="dropdownButton" data-toggle="dropdown" aria-haspopup="true" 
+ 			 	aria-expanded="false">
+    		Dataset</button>
+  			<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    			<a class="dropdown-item"  id = "HPI">Happy Planet Index</a>
+    			<a class="dropdown-item"  id = "QOL">Quality of Life Index</a>
+  			</div>
+		</div>
+		</br>
+
+		<!-- containers for map -->
+		<div id = "outercontainer">
+			<div id="container""></div>
+		</div>
+
+		<!-- description of data -->
+		<div class="container">
+  			<div class="row">
+				<div class="jumbotron" id = "desription">
+					<h4>Description of data</h4>
+
+					<p> An age-old psychological phenomenon is the human drive 
+						to compare ourselves to others (Festinger, 1954). <br>
+						On top of this, people have the need to belong to groups. 
+						Therefore, people categorize themselves into several ingroups, 
+						and often compare themselves against an outgroup. </br>
+						One often made ingroup is that of one's country (Tajfel, 
+						1974). Thus, we often want to compare how our country 
+						is doing against others. </p>
+
+					<p> In addition, many people are interested to see how well 
+						countries are doing, and how happy a country's population 
+						is. </br>
+						Several methods of analysis have been used to investigate 
+						this and to create an "index" that indicates a countries 
+						well-being.</br>
+						The Happy Planet Index and the Quality of Life index are 
+						two such methods.</p>
+
+					<p> The Happy Planet Index aims to indicate how well countries 
+						are doing at achieving long, sustainable and happy lives.</br>
+						To measure this, they analyze a country's well-being, 
+						life expectancy, inequality between the population 
+						(in terms of lifespan and happiness), and ecological footprint.</p>
+
+					<p> The Quality of Life Index, on the other hand, is an 
+						estimation of overall quality of life. </br>
+						It takes into account health care, safety, purchasing 
+						power, pollution, house price to income ratio, cost of 
+						living, traffic commute time, and climate.</p>
+
+					<p> Apparently, both indices have different measurements to 
+						determine a country's wellbeing. </br>
+						Of course, the question is: how well are these two 
+						methods at determining how well a country is doing? 
+						How do these two indices relate and compare to each other?</p>
+
+					<p> To investigate this issue, this visualization shows the 
+						Happy Planet Index and Quality of Life Index for 30 
+						European countries.</br>
+						The left visualization shows a map with the rank for 
+						each country. The right visualization shows a bar chart 
+						with each country's rank. </br>
+						By using the drop-down button, you can switch between 
+						the two datasets. Immediately, it becomes apparent that 
+						these scores do not relate to each other that much. </br>
+						When switching between datasets, you see that both the 
+						colours on the map as well as the bars change per country. </p>
+
+					<p> To zoom in on these differences, it is possible to click 
+						on a specific country on the map. The bar chart on the 
+						right will then visualize both the HPI rank and the QOL 
+						rank. </br>
+						Some countries seem to have a similar HPI rank and QOL 
+						rank. For instance, the Netherlands ranks third on 
+						both measures. </br>
+						However, there are also countries that score quite 
+						differently on both indices. Estonia, for example, 
+						scores 30th on the HPI Rank, but 8th on the QOL rank. </br>
+						Another example is Spain, which scores 2nd on the 
+						HPI Rank, but 11th on the QOL Rank. </p>
+
+					<p> Thus, this visualization shows that "well-being" can be 
+						defined in different ways, and that these methods of 
+						determining well-being can result in different outcomes. </br>
+						In addition, a bad score on one of these indices might 
+						not mean that a country is actually doing badly in terms 
+						of well-being, as this ultimately depends on the measurements. </br>
+						This visualization thus nicely underscores the importance 
+						of not relying on a single experiment or dataset to 
+						investigate a certain issue or prove a certain hypothesis. </br>
+						So remember, validation of measures, using multiple 
+						measurement methods and replication of results is necessary to make strong claims!</p>
+
+					<p> To conlude, this visualization leaves us with one 
+						remaining question that might never be answered:</p>
+					
+					<h5> What <b>really</b> determines a country's well-being?</h5> 
+				</div>
+			</div>
+		</div>
 
 
+		<!-- hero unit with information -->
+		<div class="jumbotron" id = "desription">
+			<h5> Data Sources: <a href="https://happyplanetindex.org/resources/">
+				Happy Planet</a>, <a href="https://www.numbeo.com/quality-of-life/rankings_by_country.jsp?title=2018&region=150">
+				Quality of Life</a> </br></h5>
+ 			<hr class="my-4"> 
+ 			<h5> References</h5>
+ 			<p> Festinger, L. (1954). A theory of social comparison processes. 
+ 				<i>Human relations, 7</i>(2), 117-140</br>
+ 				Tajfel, H. (1974). Social identity and intergroup behaviour. 
+ 				<i>Information (International Social Science Council), 13</i>(2), 65-93
+ 			</p>
+ 			<hr class="my-4"> 
+			<p> Sammy Heutz, 10445765</p>
+			<p> Data Processing 2018, Minor Programming</p>
+		</div>
 	</body>
 </html>
