@@ -67,6 +67,7 @@ barchart based on either the Happy Planet Index or the Quality of Life Index.
 			display both ranks for that country.</p>
 		<p >Below the visualizations you can find a short description of the 
 			data.</p>
+		<p> If you are colour blind, you can switch to a different colour range. </p>
 
 
 		<!-- drop down button to switch data -->
@@ -82,12 +83,25 @@ barchart based on either the Happy Planet Index or the Quality of Life Index.
 		</div>
 		<br>
 
+		<!-- drop down button to switch data for colour blindness -->
+		<div class="dropdown">
+ 			 <button class="btn btn-secondary dropdown-toggle" type="button" 
+ 			 id="dropdownBlind" data-toggle="dropdown" aria-haspopup="true" 
+ 			 	aria-expanded="false">
+    		Are you colour blind?</button>
+  			<div class="dropdown-menu">
+    			<a class="dropdown-item"  id = "blindHPI">Happy Planet Index</a>
+    			<a class="dropdown-item"  id = "blindQOL">Quality of Life Index</a>
+  			</div>
+		</div>
+		<br>
+
 		<!-- containers for map -->
 		<div id = "outercontainer">
 			<div id="container"></div>
 		</div>
 
-		<!-- description of data -->
+		<!-- hero unit with description of data -->
 		<div class="container">
   			<div class="row">
 				<div class="jumbotron">

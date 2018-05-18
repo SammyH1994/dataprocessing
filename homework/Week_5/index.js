@@ -25,24 +25,24 @@ var w = 600,
 
 window.onload = function() {
 	
-	var quality_of_life = "quality_of_life.json";
-	var happy_planet = "happy_planet.json";
+	var qualityOfLife = "quality_of_life.json";
+	var happyPlanet = "happy_planet.json";
 	
 	// retrieve data
 	d3.queue()
-		.defer(d3.json, happy_planet)
-		.defer(d3.json, quality_of_life)
+		.defer(d3.json, happyPlanet)
+		.defer(d3.json, qualityOfLife)
 		.await(callback);
 	
 	// create visualizations
-	function callback(error, happy_planet, quality_of_life) {
+	function callback(error, happyPlanet, qualityOfLife) {
 	if (error) throw error;
 	
-		dataLength = happy_planet.happy_planet.length;
+		dataLength = happyPlanet.happy_planet.length;
 
 		// variables for easier data usage
-		var happy = happy_planet.happy_planet;
-		var quality = quality_of_life.quality_of_life;
+		var happy = happyPlanet.happy_planet;
+		var quality = qualityOfLife.quality_of_life;
 
 		// change HPI_rank to 1 - 30 for comparison with QOF_Rank
 		// create countries array and dict with ranks per country
@@ -73,7 +73,8 @@ window.onload = function() {
 		name = "Happy Planet Rank: ";
 		var rank = "HPI_Rank";
 		var title = "Happy Planet Rank Europe";
-		var colour = createColour(happy, rank);
+		var range = ["green", "red"];
+		colour = createColour(happy, rank, range);
 		var series = seriesHPI;
 		var dataset = {};
 
@@ -93,19 +94,19 @@ window.onload = function() {
 
 		// create initial barchart and map
 		var map = createMap(dataset, name, title);
-		legend = createLegend(happy);
+		var legend = createLegend(happy, "stop-bottom");
 		createBarchart(happy, rank);
-		updateRank(happy, rank, title);
+		updateRank(happy, rank, title, colour);
 		
 		// change data based on dropdown menu
+		// colour blind people can choose different colour range with second dropdown
 		function changeRank() {
 
 			var index = this.getAttribute("id");
-			
+
 			// values for Happy Planet Index
-			if (index === "HPI"){
+			if (index === "HPI" || index === "blindHPI"){
 				rank = "HPI_Rank";
-				colour = createColour(happy, rank);
 				series = seriesHPI;
 				name = "Happy Planet Rank: ";
 				var dataBar = happy;
@@ -115,11 +116,23 @@ window.onload = function() {
 			// values for Quality of Life Index
 			else {
 				rank = "QOF_Rank";
-				colour = createColour(quality, rank);
 				series = seriesQOL;
 				name = "Quality of Life Rank: ";
 				var dataBar = quality;
 				title = "Quality of Life Rank Europe";
+				};
+
+				// determine colour scales: normal or colour blind
+				if (index == "blindHPI" || index == "blindQOL"){
+					range = ["#fed976", "red"]
+					var classy = "stop-bottom-blind"
+					colour = createColour(dataBar, rank, range);
+				}
+				
+				else {
+					range = ["green", "red"]
+					var classy = "stop-bottom"
+					colour = createColour(dataBar, rank, range)
 				};
 
 			// data format to create map colours based on values
@@ -131,17 +144,21 @@ window.onload = function() {
 
 			// clear map
 			document.getElementById("container").innerHTML = "";
-			mapTitel = document.getElementById("maptitle");
-			mapTitel.parentNode.removeChild(mapTitel);
+			var mapTitle = document.getElementById("maptitle");
+			mapTitle.parentNode.removeChild(mapTitle);
+			var mapLegend = document.getElementById("legend");
+			mapLegend.parentNode.removeChild(mapLegend);
 
 			// update map and barchart
 			map = createMap(dataset, name, title);
-			updateRank(dataBar, rank, title);
+			legend = createLegend(happy, classy);
+			updateRank(dataBar, rank, title, colour);
 };
 
 	document.getElementById("HPI").onclick=changeRank;
 	document.getElementById("QOL").onclick=changeRank;
-
+	document.getElementById("blindHPI").onclick=changeRank;
+	document.getElementById("blindQOL").onclick=changeRank;
 };
 };
 

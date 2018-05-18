@@ -47,15 +47,10 @@ function createBarchart(data, rank){
 
 // updata bar chart based on data (either europe or per country)
 // has to be split up in "if, else" because otherwise transitions won't work
-function updateRank(data, rank, title){
+function updateRank(data, rank, title, colours){
 
 	// update values that are same for both charts
-	var colour = d3.scale.linear()
-    	.range(["green", "red"])
-	    .domain([
-            d3.min(data, function(d) {return d[rank]; }),
-            d3.max(data, function(d) {return d[rank]; })
-        ]);
+	var colour = colours;
 
     var yAxis = d3.svg.axis()
 		.scale(yScale)
@@ -68,7 +63,7 @@ function updateRank(data, rank, title){
 
 		// update xScale
 		xScale
-		.domain(data.map(function(d) { return d.category; }));
+			.domain(data.map(function(d) { return d.category; }));
 
 		// setting the x axis	
 		var xAxis = d3.svg.axis()

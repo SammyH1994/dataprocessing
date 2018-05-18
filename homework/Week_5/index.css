@@ -13,8 +13,7 @@ body{
 	text-align: center;
 }
 
-
-/* positioning and styles of visualizations, map title and legend*/
+/* positioning and styles of visualizations and  map title */
 #outercontainer {
 	position:relative;
 	width: 1300px;
@@ -54,14 +53,6 @@ body{
 	left:200px;
 	top:0px;
 }
-
-
-.legend {
-	position:absolute;
-	left:5px;
-	top:30px;
-}
-
 
 /* creating tooltip*/
 .d3-tip {
@@ -105,7 +96,6 @@ rect:hover {
 	cursor:pointer;
 }
 
-
 /* axes */
 	.axis path,
 	.y.axis line {
@@ -115,14 +105,26 @@ rect:hover {
 	stroke-width: 1px;
 }
 
+/* map legend*/
+.legend {
+	position:absolute;
+	left:5px;
+	top:30px;
+}
 
 /* legend colours*/
 .stop-top {
 	stop-color: red 
 }
 
+/* normal colour range*/
 .stop-bottom {
-	stop-color: green  
+	stop-color: green
+}
+
+/* colour blind colour range*/
+.stop-bottom-blind {
+	stop-color: #fed976  
 }
 
 .filled {

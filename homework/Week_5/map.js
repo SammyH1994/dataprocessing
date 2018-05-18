@@ -5,15 +5,14 @@
  *  map.js contains the functions that creates a map with its legend via index.js
 **/
 
-
-// creates the colour scale for a map
-function createColour(data, values){
+// creates the colour scale for map and barchart
+function createColour(data, values, range){
     return d3.scale.linear()
         .domain([
             d3.min(data, function(d) {return d[values]; }),
             d3.max(data, function(d) {return d[values]; })
         ])
-        .range(["green", "red"]);
+        .range(range);
 };
 
 // creates a map
@@ -38,7 +37,7 @@ function createMap(dataset, string, titel){
                 currentCountry = geography.properties.name;
                 if (!countries.includes(currentCountry)){return}
                 data = createBardata(currentCountry)
-                updateRank(data, "value", currentCountry)
+                updateRank(data, "value", currentCountry, colour)
 
             });
         },
@@ -81,7 +80,7 @@ function createMap(dataset, string, titel){
 };
 
 // create legend for map
-function createLegend(data){
+function createLegend(data, classy){
         
     // help from http://bl.ocks.org/pnavarrc/20950640812489f13246
 
@@ -92,6 +91,7 @@ function createLegend(data){
         .append("svg")
         .attr("width", wLegend)
         .attr("height", hLegend)
+        .attr("id", "legend")
         .attr("class", "legend");
 
     // Create the svg:defs element and the main gradient definition.
@@ -112,7 +112,7 @@ function createLegend(data){
         .attr("offset", "0%");
 
     mainGradient.append("stop")
-        .attr("class", "stop-bottom")
+        .attr("class", classy)
         .attr("offset", "100%");
 
     // Use the gradient to set the shape fill, via CSS.
